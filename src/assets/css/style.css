@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --ring: 222.2 84% 4.9%;
+    --radius: 4px;
+    --primary-color: #6f4e37;
+    --primary-100: #c3906a;
+    --primary-200: #644632;
+    --secondary-color: #ffbc23;
+    --body-color: #fff5ee;
+    --white-color: #ffffff;
+    --white-20: #fff9f4;
+    --white-10: #a4826b;
+    --black: #222222;
+    --border: #d5d5d5;
+    --gold-color: #ffa500;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-primary-50 font-poppins;
+  }
+
+  h1 {
+    @apply text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl lg:leading-snug;
+  }
+
+  h2 {
+    @apply text-2xl font-semibold leading-tight text-primary md:text-3xl lg:text-4xl lg:leading-snug;
+  }
+
+  h3 {
+    @apply mb-2 text-xl font-semibold text-primary md:mb-4 md:text-2xl lg:text-3xl;
+  }
+
+  p {
+    @apply text-sm font-normal leading-6 text-black md:text-base;
+  }
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--border);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-100);
+}
