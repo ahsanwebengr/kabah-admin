@@ -5,6 +5,9 @@ import { IoMdClose } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import { MdPermMedia } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
+import { FaRegEye } from "react-icons/fa";
 
 export {
   FiMenu,
@@ -14,4 +17,7 @@ export {
   IoIosArrowDown,
   IoIosArrowUp,
   MdPermMedia,
+  MdDelete,
+  FaEdit,
+  FaRegEye,
 };

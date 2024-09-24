@@ -4,9 +4,9 @@ import DefaultLayout from "@/layout/DefaultLayout";
 const Hajj = () => {
   return (
     <DefaultLayout>
-        <Breadcrumb/>
+      <Breadcrumb />
     </DefaultLayout>
-  )
-}
+  );
+};
 
-export default Hajj
+export default Hajj;
