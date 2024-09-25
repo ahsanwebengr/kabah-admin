@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getPackages } from "./service";
+import { deletePackage, getPackages } from "./service";
 
 const initialState = {
   packages: {
@@ -20,14 +20,27 @@ export const packageSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getPackages.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.packages = action.payload;
+        state.packages.isLoading = false;
+        state.packages.isSuccess = true;
+        state.packages.packages = action.payload;
       })
       .addCase(getPackages.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = false;
-        state.errorMessage = action.payload;
+        state.packages.isLoading = false;
+        state.packages.isSuccess = false;
+        state.packages.errorMessage = action.payload;
+      })
+      .addCase(deletePackage.pending, (state) => {
+        state.packages.isLoading = true;
+      })
+      .addCase(deletePackage.fulfilled, (state, action) => {
+        state.packages.isLoading = false;
+        state.packages.isSuccess = true;
+        state.packages.packages = action.payload;
+      })
+      .addCase(deletePackage.rejected, (state, action) => {
+        state.packages.isLoading = false;
+        state.packages.isSuccess = false;
+        state.packages.errorMessage = action.payload;
       });
   },
 });

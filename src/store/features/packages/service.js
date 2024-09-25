@@ -1,6 +1,7 @@
 import api from "@/lib/api";
 import config from "@/lib/endpoint";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
 
 // const createBrands = createAsyncThunk(
 //   'brand/createBrands',
@@ -52,22 +53,21 @@ const getPackages = createAsyncThunk(
 //   }
 // );
 
-// const deleteBrand = createAsyncThunk(
-//   'brand/deleteBrand',
-//   async (id, { rejectWithValue }) => {
-//     try {
-//       const response = await axios.delete(
-//         `${config.baseUrl}/${config.endPoints.BRANDS}/${id}`
-//       );
-//       if (response.status === 204) {
-//         alert('Success');
-//       }
-//       return response.data;
-//     } catch (error) {
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
+const deletePackage = createAsyncThunk(
+  "package/deletePackage",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await api.delete(`${config.admin.packages}/${id}`);
+      if (response.status === 200) {
+        toast.success("Package deleted successfully");
+      }
+      return response.data;
+    } catch (error) {
+      toast.error("Failed to delete package");
+      return rejectWithValue(error.message);
+    }
+  },
+);
 
 // const updateBrand = createAsyncThunk(
 //   'brand/updateBrand',
@@ -87,4 +87,4 @@ const getPackages = createAsyncThunk(
 //   }
 // );
 
-export { getPackages };
+export { getPackages, deletePackage };

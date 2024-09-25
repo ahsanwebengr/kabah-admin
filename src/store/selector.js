@@ -1,7 +1,7 @@
-export const PackagesData = (state) => state?.package?.packages?.plan;
+export const PackagesData = (state) => state?.package?.packages?.packages?.plan;
 
-export const PackagesLoading = (state) => state?.package?.isLoading;
+export const PackagesLoading = (state) => state?.package?.packages?.isLoading;
 
-export const PackagesSuccess = (state) => state?.package?.isSuccess;
+export const PackagesSuccess = (state) => state?.package?.packages?.isSuccess;
 
-export const PackagesError = (state) => state?.package?.errorMessage;
+export const PackagesError = (state) => state?.package?.packages?.errorMessage;
