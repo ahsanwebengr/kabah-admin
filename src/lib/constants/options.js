@@ -32,3 +32,5 @@ const UMRAH_PARAM = "MADINA";
 const HAJJ_PARAM = "MAKKAH";
 
 export { AirportOptions, HotelOptions, UMRAH_PARAM, HAJJ_PARAM };
+
+export const BASE_URL = import.meta.env.VITE_API_URL;

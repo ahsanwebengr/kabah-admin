@@ -1,3 +1,4 @@
+import { Spinner } from "@/common";
 import Breadcrumb from "@/components/Breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,12 +14,15 @@ import {
   HotelOptions,
   UMRAH_PARAM,
 } from "@/lib/constants/options";
+import PackageSchema from "@/schema/Package";
 import { createPackage } from "@/store/features/packages/service";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const CreateUmrahPackage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       category: UMRAH_PARAM,
@@ -42,8 +46,8 @@ const CreateUmrahPackage = () => {
         qurbani: true,
       },
       price_excludes: {
-        extra_meals: false,
-        any_private_expenses: false,
+        extra_meals: true,
+        any_private_expenses: true,
       },
       complementarities: {
         flight_refreshments: true,
@@ -80,64 +84,87 @@ const CreateUmrahPackage = () => {
         driver_picks_you_up_back_to_jeddah_airport: true,
       },
     },
-    onSubmit: async (values) => {
-      await dispatch(createPackage(values));
-      console.log(values);
+    validationSchema: PackageSchema,
+    onSubmit: async (values, { resetForm, setSubmitting }) => {
+      try {
+        setSubmitting(true);
+        await dispatch(createPackage(values)).unwrap();
+        resetForm();
+        navigate("/packages/umrah");
+      } catch (error) {
+        console.error(values);
+      } finally {
+        setSubmitting(false);
+      }
     },
   });
+
+  const { values, errors, touched, handleChange, handleSubmit, isSubmitting } =
+    formik;
 
   return (
     <DefaultLayout>
       <Breadcrumb />
 
-      <form onSubmit={formik.handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 gap-4 rounded-lg bg-white px-5 py-10 shadow-xl md:grid-cols-2">
           <InputField
             label="Heading"
             name="heading"
-            value={formik.values.heading}
-            onChange={formik.handleChange}
+            value={values.heading}
+            onChange={handleChange}
+            error={errors.heading && touched.heading ? errors.heading : null}
           />
           <InputField
             label="Price"
             name="price"
             type="number"
-            value={formik.values.price}
-            onChange={formik.handleChange}
+            value={values.price}
+            onChange={handleChange}
+            error={errors.price && touched.price ? errors.price : null}
           />
           <InputField
             label="From Date"
             name="from_date"
             type="date"
-            value={formik.values.from_date}
-            onChange={formik.handleChange}
+            value={values.from_date}
+            onChange={handleChange}
+            error={
+              errors.from_date && touched.from_date ? errors.from_date : null
+            }
           />
           <InputField
             label="To Date"
             name="to_date"
             type="date"
-            value={formik.values.to_date}
-            onChange={formik.handleChange}
+            value={values.to_date}
+            onChange={handleChange}
+            error={errors.to_date && touched.to_date ? errors.to_date : null}
           />
           <SelectField
             label="Hotels Rating"
             name="hotels_rating"
-            value={formik.values.hotels_rating}
-            onChange={formik.handleChange}
+            value={values.hotels_rating}
+            onChange={handleChange}
             options={HotelOptions}
           />
           <SelectField
             label="Departure Airport"
             name="departure_airport"
-            value={formik.values.departure_airport}
-            onChange={formik.handleChange}
+            value={values.departure_airport}
+            onChange={handleChange}
             options={AirportOptions}
           />
           <InputField
             label="Transit Hub"
             name="transit_hub"
-            value={formik.values.transit_hub}
-            onChange={formik.handleChange}
+            value={values.transit_hub}
+            onChange={handleChange}
+            error={
+              errors.transit_hub && touched.transit_hub
+                ? errors.transit_hub
+                : null
+            }
           />
           <div className="md:col-span-2">
             <label
@@ -148,10 +175,17 @@ const CreateUmrahPackage = () => {
             </label>
             <Textarea
               name="description"
-              value={formik.values.description}
-              onChange={formik.handleChange}
+              value={values.description}
+              onChange={handleChange}
               placeholder="Package Description"
             />
+            {errors.description && (
+              <span className="text-sm text-red-500">
+                {errors.description && touched.description
+                  ? errors.description
+                  : null}
+              </span>
+            )}
           </div>
         </div>
 
@@ -159,43 +193,43 @@ const CreateUmrahPackage = () => {
           <CheckboxField
             name="visa_included"
             label="Visa Included"
-            checked={formik.values.visa_included}
-            onChange={formik.handleChange}
+            checked={values.visa_included}
+            onChange={handleChange}
           />
         </FormSection>
 
         <FormSection title="Price Includes:">
-          {Object.keys(formik.values.price_includes).map((key) => (
+          {Object.keys(values.price_includes).map((key) => (
             <CheckboxField
               key={key}
               name={`price_includes.${key}`}
               label={key}
-              checked={formik.values.price_includes[key]}
-              onChange={formik.handleChange}
+              checked={values.price_includes[key]}
+              onChange={handleChange}
             />
           ))}
         </FormSection>
 
         <FormSection title="Price Excludes:">
-          {Object.keys(formik.values.price_excludes).map((key) => (
+          {Object.keys(values.price_excludes).map((key) => (
             <CheckboxField
               key={key}
               name={`price_excludes.${key}`}
               label={key}
-              checked={formik.values.price_excludes[key]}
-              onChange={formik.handleChange}
+              checked={values.price_excludes[key]}
+              onChange={handleChange}
             />
           ))}
         </FormSection>
 
         <FormSection title="Complementarities:">
-          {Object.keys(formik.values.complementarities).map((key) => (
+          {Object.keys(values.complementarities).map((key) => (
             <CheckboxField
               key={key}
               name={`complementarities.${key}`}
               label={key}
-              checked={formik.values.complementarities[key]}
-              onChange={formik.handleChange}
+              checked={values.complementarities[key]}
+              onChange={handleChange}
             />
           ))}
         </FormSection>
@@ -205,28 +239,34 @@ const CreateUmrahPackage = () => {
             <InputField
               name="makkah_hotel.hotel_name"
               label="Hotel Name"
-              value={formik.values.makkah_hotel.hotel_name}
-              onChange={formik.handleChange}
+              value={values.makkah_hotel?.hotel_name}
+              onChange={handleChange}
+              error={
+                errors.makkah_hotel?.hotel_name &&
+                touched.makkah_hotel?.hotel_name
+                  ? errors.makkah_hotel?.hotel_name
+                  : null
+              }
             />
 
             <SelectField
               name="makkah_hotel.rating"
               label="Rating"
-              value={formik.values.makkah_hotel.rating}
-              onChange={formik.handleChange}
+              value={values.makkah_hotel?.rating}
+              onChange={handleChange}
               options={HotelOptions}
             />
           </div>
 
-          {Object.keys(formik.values.makkah_hotel).map((key) => {
+          {Object.keys(values.makkah_hotel).map((key) => {
             if (key !== "hotel_name" && key !== "rating") {
               return (
                 <CheckboxField
                   key={key}
                   name={`makkah_hotel.${key}`}
                   label={key.replace(/_/g, " ")}
-                  checked={formik.values.makkah_hotel[key]}
-                  onChange={formik.handleChange}
+                  checked={values.makkah_hotel[key]}
+                  onChange={handleChange}
                 />
               );
             }
@@ -239,28 +279,34 @@ const CreateUmrahPackage = () => {
             <InputField
               name="medinah_hotel.hotel_name"
               label="Hotel Name"
-              value={formik.values.medinah_hotel.hotel_name}
-              onChange={formik.handleChange}
+              value={values.medinah_hotel.hotel_name}
+              onChange={handleChange}
+              error={
+                errors.medinah_hotel?.hotel_name &&
+                touched.medinah_hotel?.hotel_name
+                  ? errors.medinah_hotel?.hotel_name
+                  : null
+              }
             />
 
             <SelectField
               name="medinah_hotel.rating"
               label="Rating"
-              value={formik.values.medinah_hotel.rating}
-              onChange={formik.handleChange}
+              value={values.medinah_hotel.rating}
+              onChange={handleChange}
               options={HotelOptions}
             />
           </div>
 
-          {Object.keys(formik.values.medinah_hotel).map((key) => {
+          {Object.keys(values.medinah_hotel).map((key) => {
             if (key !== "hotel_name" && key !== "rating") {
               return (
                 <CheckboxField
                   key={key}
                   name={`medinah_hotel.${key}`}
                   label={key.replace(/_/g, " ")}
-                  checked={formik.values.medinah_hotel[key]}
-                  onChange={formik.handleChange}
+                  checked={values.medinah_hotel[key]}
+                  onChange={handleChange}
                 />
               );
             }
@@ -269,18 +315,20 @@ const CreateUmrahPackage = () => {
         </FormSection>
 
         <FormSection title="What to Expect:">
-          {Object.keys(formik.values.what_to_expect).map((key) => (
+          {Object.keys(values.what_to_expect).map((key) => (
             <CheckboxField
               key={key}
               name={`what_to_expect.${key}`}
               label={key}
-              checked={formik.values.what_to_expect[key]}
-              onChange={formik.handleChange}
+              checked={values.what_to_expect[key]}
+              onChange={handleChange}
             />
           ))}
         </FormSection>
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? <Spinner /> : "Submit"}
+        </Button>
       </form>
     </DefaultLayout>
   );

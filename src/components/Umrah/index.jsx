@@ -8,7 +8,14 @@ export const CheckboxField = ({ name, label, checked, onChange }) => (
   </label>
 );
 
-export const InputField = ({ label, name, type = "text", value, onChange }) => (
+export const InputField = ({
+  label,
+  name,
+  type = "text",
+  value,
+  onChange,
+  error,
+}) => (
   <div className="">
     <label
       htmlFor={name}
@@ -23,6 +30,7 @@ export const InputField = ({ label, name, type = "text", value, onChange }) => (
       onChange={onChange}
       placeholder={label}
     />
+    {error && <span className="text-sm text-red-500">{error}</span>}
   </div>
 );
 

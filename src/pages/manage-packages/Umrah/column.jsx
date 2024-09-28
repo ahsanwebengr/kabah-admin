@@ -1,13 +1,14 @@
 import { alt_img } from "@/assets/images";
 import { FaRegEye, MdDelete, FaEdit } from "@/assets/icons";
 import { Link } from "react-router-dom";
+import { BASE_URL } from "@/lib/constants/options";
 
 export const columns = (onDelete) => [
   {
     name: "Image",
     selector: ({ heading = "", thumbnail = "" }) => (
       <img
-        src={thumbnail || alt_img}
+        src={`${BASE_URL}/thumbnails/${thumbnail}` || alt_img}
         onError={(e) => (e.target.src = alt_img)}
         alt={heading}
         className="size-16 rounded-md border p-2"

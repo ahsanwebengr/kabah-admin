@@ -17,7 +17,7 @@ export const packageSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createPackage.pending, (state) => {
-        state.isLoading = true;
+        state.packages.isLoading = true;
       })
       .addCase(createPackage.fulfilled, (state, action) => {
         state.packages.isLoading = false;
@@ -30,7 +30,7 @@ export const packageSlice = createSlice({
         state.packages.errorMessage = action.payload;
       })
       .addCase(getPackages.pending, (state) => {
-        state.isLoading = true;
+        state.packages.isLoading = true;
       })
       .addCase(getPackages.fulfilled, (state, action) => {
         state.packages.isLoading = false;
@@ -43,7 +43,7 @@ export const packageSlice = createSlice({
         state.packages.errorMessage = action.payload;
       })
       .addCase(deletePackage.pending, (state) => {
-        state.packages.isLoading = true;
+        state.packages.packages.isLoading = true;
       })
       .addCase(deletePackage.fulfilled, (state, action) => {
         state.packages.isLoading = false;
