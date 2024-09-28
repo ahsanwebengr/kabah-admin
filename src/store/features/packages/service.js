@@ -6,7 +6,6 @@ import toast from "react-hot-toast";
 const createPackage = createAsyncThunk(
   "package/createPackage",
   async (data, { rejectWithValue }) => {
-    console.log("🚀 ~ data:", data);
     try {
       const response = await api.post(`${config.admin.packages}`, data);
       if (response.status === 201) {

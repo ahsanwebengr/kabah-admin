@@ -15,7 +15,6 @@ const Login = () => {
   };
 
   const handleSubmit = (values, { setSubmitting }) => {
-    console.log("Form Data", values);
 
     setTimeout(() => {
       setSubmitting(false);
