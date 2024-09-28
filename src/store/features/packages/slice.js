@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { deletePackage, getPackages } from "./service";
+import { createPackage, deletePackage, getPackages } from "./service";
 
 const initialState = {
   packages: {
@@ -16,6 +16,19 @@ export const packageSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(createPackage.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createPackage.fulfilled, (state, action) => {
+        state.packages.isLoading = false;
+        state.packages.isSuccess = true;
+        state.packages.packages = action.payload;
+      })
+      .addCase(createPackage.rejected, (state, action) => {
+        state.packages.isLoading = false;
+        state.packages.isSuccess = false;
+        state.packages.errorMessage = action.payload;
+      })
       .addCase(getPackages.pending, (state) => {
         state.isLoading = true;
       })

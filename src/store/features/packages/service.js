@@ -3,32 +3,32 @@ import config from "@/lib/endpoint";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 
-// const createBrands = createAsyncThunk(
-//   'brand/createBrands',
-//   async (data, { rejectWithValue }) => {
-//     try {
-//       const response = await axios.post(
-//         `${config.baseUrl}/${config.endPoints.BRANDS}`,
-//         data
-//       );
-//       if (response.status === 200) {
-//         alert('Success');
-//       }
-//       return response?.data;
-//     } catch (error) {
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
+const createPackage = createAsyncThunk(
+  "package/createPackage",
+  async (data, { rejectWithValue }) => {
+    console.log("🚀 ~ data:", data);
+    try {
+      const response = await api.post(`${config.admin.packages}`, data);
+      if (response.status === 201) {
+        toast.success("Package created successfully");
+      }
+      return response?.data;
+    } catch (error) {
+      toast.error("Failed to create Package");
+      return rejectWithValue(error.message);
+    }
+  },
+);
 
 const getPackages = createAsyncThunk(
   "package/getPackages",
-  async ({ page, limit } = {}, { rejectWithValue }) => {
+  async ({ page, limit, category } = {}, { rejectWithValue }) => {
     try {
       const response = await api.get(config.public.packages, {
         params: {
           page,
           limit,
+          category,
         },
       });
 
@@ -87,4 +87,4 @@ const deletePackage = createAsyncThunk(
 //   }
 // );
 
-export { getPackages, deletePackage };
+export { getPackages, deletePackage, createPackage };

@@ -9,6 +9,7 @@ import { deletePackage, getPackages } from "@/store/features/packages/service";
 import { PackagesData, PackagesLoading } from "@/store/selector";
 import { setCurrentPage, setPerPage } from "@/store/features/pagination/slice";
 import { columns } from "./column";
+import { UMRAH_PARAM } from "@/lib/constants/options";
 
 const Umrah = () => {
   const navigate = useNavigate();
@@ -21,7 +22,9 @@ const Umrah = () => {
   );
 
   useEffect(() => {
-    dispatch(getPackages({ page: currentPage, limit: perPage }));
+    dispatch(
+      getPackages({ page: currentPage, limit: perPage, category: UMRAH_PARAM }),
+    );
   }, [dispatch, currentPage, perPage]);
 
   const handlePageChange = (page) => {
@@ -45,7 +48,7 @@ const Umrah = () => {
           Add New
         </Button>
       </div>
-      <div className="sm:px-7.5 rounded-lg border bg-white px-5 pb-2.5 pt-6 shadow-lg xl:pb-1">
+      <div className="rounded-lg border bg-white px-5 pb-2.5 pt-6 shadow-lg sm:px-7 xl:pb-1">
         <Table
           columns={columns(handleDelete)}
           data={plans}
