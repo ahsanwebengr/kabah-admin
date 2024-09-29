@@ -8,6 +8,7 @@ import { MdPermMedia } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa";
+import { FaBlog } from "react-icons/fa6";
 
 export {
   FiMenu,
@@ -20,4 +21,5 @@ export {
   MdDelete,
   FaEdit,
   FaRegEye,
+  FaBlog,
 };

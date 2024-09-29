@@ -6,6 +6,7 @@ import {
   IoMdClose,
   IoIosArrowUp,
   MdPermMedia,
+  FaBlog,
 } from "@/assets/icons";
 
 import MenuLinks from "./MenuLinks";
@@ -192,6 +193,19 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 </>
               )}
             </MenuLinks>
+
+            <li>
+              <NavLink
+                to="/manage-blogs"
+                className={`group flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-white duration-300 ${
+                  (pathname === "/" || pathname.includes("manage-blogs")) &&
+                  "bg-white !text-black"
+                }`}
+              >
+                <FaBlog />
+                Manage Blogs
+              </NavLink>
+            </li>
           </ul>
         </nav>
       </div>

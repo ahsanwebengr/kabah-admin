@@ -6,6 +6,7 @@ import CreateUmrahPackage from "./pages/manage-packages/Umrah/create";
 import UpdateUmrahPackage from "./pages/manage-packages/Umrah/update";
 import ViewUmrahPackage from "./pages/manage-packages/Umrah/view";
 import CreateHajjPackage from "./pages/manage-packages/Hajj/create";
+import ManageBlogs from "./pages/manage-blogs";
 
 const Login = lazy(() => import("./pages/Login"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -25,6 +26,7 @@ const routes = [
   { path: "/packages/hajj/create", element: <CreateHajjPackage /> },
   { path: "/media/package", element: <Packages /> },
   { path: "/media/blogs", element: <Blogs /> },
+  { path: "/manage-blogs", element: <ManageBlogs /> },
   { path: "*", element: <NotFound /> },
 ];
 
