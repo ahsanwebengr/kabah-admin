@@ -56,11 +56,11 @@ const AddMedia = () => {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger>
-        <div className="flex justify-end">
+      <div className="flex justify-end">
+        <DialogTrigger>
           <Button onClick={() => setIsOpen(true)}>Add Media</Button>
-        </div>
-      </DialogTrigger>
+        </DialogTrigger>
+      </div>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add Media for Package</DialogTitle>
