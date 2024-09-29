@@ -43,7 +43,6 @@ const CreateUmrahPackage = () => {
         ziyarahs_in_makkah_medinah: true,
         emergency_helpline_24_7: true,
         mina_services_with_ac_tents_mattress_pillow: true,
-        qurbani: true,
       },
       price_excludes: {
         extra_meals: true,

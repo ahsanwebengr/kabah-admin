@@ -28,8 +28,8 @@ const HotelOptions = [
   { value: "5_star", label: "5 Star" },
 ];
 
-const UMRAH_PARAM = "MADINA";
-const HAJJ_PARAM = "MAKKAH";
+const UMRAH_PARAM = "umrah";
+const HAJJ_PARAM = "hajj";
 
 export { AirportOptions, HotelOptions, UMRAH_PARAM, HAJJ_PARAM };
 
