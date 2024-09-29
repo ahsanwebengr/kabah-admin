@@ -3,17 +3,20 @@ import { Button } from "@/components/ui/button";
 import DefaultLayout from "@/layout/DefaultLayout";
 import { useNavigate } from "react-router-dom";
 import { Table } from "@/common";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deletePackage, getPackages } from "@/store/features/packages/service";
 import { PackagesData, PackagesLoading } from "@/store/selector";
 import { setCurrentPage, setPerPage } from "@/store/features/pagination/slice";
 import { columns } from "./column";
 import { UMRAH_PARAM } from "@/lib/constants/options";
+import DeleteModal from "@/components/DeleteModal";
 
 const Umrah = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedPackageId, setSelectedPackageId] = useState(null);
 
   const { plans = [], total = 0 } = useSelector(PackagesData) || {};
   const isLoading = useSelector(PackagesLoading);
@@ -35,9 +38,17 @@ const Umrah = () => {
     dispatch(setPerPage(newPerPage));
   };
 
-  const handleDelete = async (id) => {
-    await dispatch(deletePackage(id)).unwrap();
-    await dispatch(getPackages({ page: currentPage, limit: perPage }));
+  const confirmDelete = (id) => {
+    setSelectedPackageId(id);
+    setIsOpen(true);
+  };
+
+  const handleDelete = async () => {
+    await dispatch(deletePackage(selectedPackageId)).unwrap();
+    await dispatch(
+      getPackages({ page: currentPage, limit: perPage, category: UMRAH_PARAM }),
+    );
+    setIsOpen(false);
   };
 
   return (
@@ -50,7 +61,7 @@ const Umrah = () => {
       </div>
       <div className="rounded-lg border bg-white px-5 pb-2.5 pt-6 shadow-lg sm:px-7 xl:pb-1">
         <Table
-          columns={columns(handleDelete)}
+          columns={columns(confirmDelete)}
           data={plans}
           paginationTotalRows={total}
           paginationPerPage={perPage}
@@ -59,6 +70,12 @@ const Umrah = () => {
           onChangeRowsPerPage={handlePerRowsChange}
         />
       </div>
+
+      <DeleteModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        handleDelete={handleDelete}
+      />
     </DefaultLayout>
   );
 };
