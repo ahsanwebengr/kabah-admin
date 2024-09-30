@@ -286,7 +286,11 @@ const CreateUmrahPackage = () => {
           </div>
 
           {Object.keys(values.makkah_hotel).map((key) => {
-            if (key !== "hotel_name" && key !== "rating") {
+            if (
+              key !== "hotel_name" &&
+              key !== "rating" &&
+              key !== "makkah_hotel_images"
+            ) {
               return (
                 <CheckboxField
                   key={key}
@@ -326,7 +330,11 @@ const CreateUmrahPackage = () => {
           </div>
 
           {Object.keys(values.medinah_hotel).map((key) => {
-            if (key !== "hotel_name" && key !== "rating") {
+            if (
+              key !== "hotel_name" &&
+              key !== "rating" &&
+              key !== "medinah_hotel_images"
+            ) {
               return (
                 <CheckboxField
                   key={key}

@@ -7,3 +7,6 @@ export const MediaLoading = (state) => state?.media?.media?.isLoading;
 export const PackagesSuccess = (state) => state?.package?.packages?.isSuccess;
 
 export const PackagesError = (state) => state?.package?.packages?.errorMessage;
+
+export const SelectedPackage = (state) =>
+  state?.package?.selectedPackage?.data?.plan;

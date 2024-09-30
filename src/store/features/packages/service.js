@@ -9,11 +9,12 @@ const createPackage = createAsyncThunk(
     try {
       const response = await api.post(`${config.admin.packages}`, data);
       if (response.status === 201) {
-        toast.success("Package created successfully");
+        toast.success(
+          response?.data?.message || "Package created successfully",
+        );
       }
       return response?.data;
     } catch (error) {
-      console.log("🚀 ~ error:", error);
       toast.error("Failed to create Package");
       return rejectWithValue(error.message);
     }
@@ -39,27 +40,27 @@ const getPackages = createAsyncThunk(
   },
 );
 
-// const getSingleBrand = createAsyncThunk(
-//   'brand/getSingleBrand',
-//   async (id, { rejectWithValue }) => {
-//     try {
-//       const response = await axios.get(
-//         `${config.baseUrl}/${config.endPoints.BRANDS}/${id}`
-//       );
-//       return response?.data;
-//     } catch (error) {
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
+const getSinglePackage = createAsyncThunk(
+  "package/getSinglePackage",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await api.get(`${config.public.packages}${id}`);
+      return response?.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  },
+);
 
 const deletePackage = createAsyncThunk(
   "package/deletePackage",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await api.delete(`${config.admin.packages}/${id}`);
+      const response = await api.delete(`${config.admin.packages}${id}`);
       if (response.status === 200) {
-        toast.success("Package deleted successfully");
+        toast.success(
+          response?.data?.message || "Package deleted successfully",
+        );
       }
       return response.data;
     } catch (error) {
@@ -69,22 +70,27 @@ const deletePackage = createAsyncThunk(
   },
 );
 
-// const updateBrand = createAsyncThunk(
-//   'brand/updateBrand',
-//   async ({ id, data }, { rejectWithValue }) => {
-//     try {
-//       const response = await axios.put(
-//         `${config.baseUrl}/${config.endPoints.BRANDS}/${id}`,
-//         data
-//       );
-//       if (response.status === 200) {
-//         alert('Success');
-//       }
-//       return response?.data;
-//     } catch (error) {
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
+const updatePackage = createAsyncThunk(
+  "package/updatePackage",
+  async ({ id, data }, { rejectWithValue }) => {
+    try {
+      const response = await api.put(`${config.admin.packages}${id}`, data);
+      if (response.status === 200) {
+        toast.success(
+          response?.data?.message || "Package Updated successfully",
+        );
+      }
+      return response?.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  },
+);
 
-export { getPackages, deletePackage, createPackage };
+export {
+  getPackages,
+  deletePackage,
+  createPackage,
+  getSinglePackage,
+  updatePackage,
+};

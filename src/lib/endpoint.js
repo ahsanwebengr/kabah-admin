@@ -1,9 +1,9 @@
 const config = {
   public: {
-    packages: "public/plans",
+    packages: "public/plans/",
   },
   admin: {
-    packages: "admin/plans",
+    packages: "admin/plans/",
     plan_media: "admin/plan-media/",
   },
 };

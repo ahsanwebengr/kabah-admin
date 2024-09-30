@@ -1,6 +1,4 @@
-import { Spinner } from "@/common";
 import Breadcrumb from "@/components/Breadcrumb";
-import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import {
   CheckboxField,
@@ -11,100 +9,74 @@ import {
 import DefaultLayout from "@/layout/DefaultLayout";
 import {
   AirportOptions,
-  HAJJ_PARAM,
   HotelOptions,
+  UMRAH_PARAM,
 } from "@/lib/constants/options";
-import PackageSchema from "@/schema/Package";
-import { createPackage } from "@/store/features/packages/service";
+import { getSinglePackage } from "@/store/features/packages/service";
+import { SelectedPackage } from "@/store/selector";
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-const CreateHajjPackage = () => {
+const ViewHajjPackage = () => {
+  const { id } = useParams();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const {
+    heading = "",
+    price = "",
+    description = "",
+    hotels_rating = "",
+    visa_included = false,
+    flights = false,
+    transport = false,
+    sharing = false,
+    free_ziyarahs = false,
+    from_date = "",
+    to_date = "",
+    departure_airport = "",
+    transit_hub = "",
+    price_includes = {},
+    price_excludes = {},
+    complementarities = {},
+    makkah_hotel = {},
+    medinah_hotel = {},
+    what_to_expect = {},
+  } = useSelector(SelectedPackage) || {};
+
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      category: HAJJ_PARAM,
-      heading: "",
-      price: "",
-      description: "",
-      hotels_rating: "",
-      visa_included: true,
-      flights: true,
-      transport: true,
-      sharing: true,
-      free_ziyarahs: true,
-      from_date: "",
-      to_date: "",
-      departure_airport: "",
-      transit_hub: "",
-      price_includes: {
-        visa_fee: true,
-        return_flight_fares: true,
-        days_21_hotel_accommodation: true,
-        all_transportation_between_makkah_medinah_airport: true,
-        ziyarahs_in_makkah_medinah: true,
-        emergency_helpline_24_7: true,
-        mina_services_with_ac_tents_mattress_pillow: true,
-        qurbani: true,
-      },
-      price_excludes: {
-        extra_meals: true,
-        any_private_expenses: true,
-      },
-      complementarities: {
-        flight_refreshments: true,
-        e_guide_Umrah_perform: true,
-      },
-      makkah_hotel: {
-        hotel_name: "",
-        rating: "",
-        wheel_chair_friendly: true,
-        walking_from_haram_7_to_10_mins: true,
-        city_view: true,
-        air_conditioned_rooms: true,
-        wifi_available: true,
-        breakfast_can_be_included: true,
-      },
-      medinah_hotel: {
-        hotel_name: "",
-        rating: "",
-        wheel_chair_friendly: true,
-        walking_from_haram_7_to_10_mins: true,
-        city_view: true,
-        air_conditioned_rooms: true,
-        wifi_available: true,
-        breakfast_can_be_included: true,
-      },
-      what_to_expect: {
-        fly_from_uk_to_jeddah_airport: true,
-        makkah_to_medinah_via_same_car: true,
-        driver_picks_you_from_jeddah_airport: true,
-        reach_medinah_hotel_check_in: true,
-        reach_makkah_hotel_check_in: true,
-        ziyarahs_in_medinah_private_car: true,
-        ziyarahs_in_makkah_private_car_driver: true,
-        driver_picks_you_up_back_to_jeddah_airport: true,
-      },
-    },
-    validationSchema: PackageSchema,
-    onSubmit: async (values, { resetForm, setSubmitting }) => {
-      try {
-        setSubmitting(true);
-        await dispatch(createPackage(values)).unwrap();
-        resetForm();
-        navigate("/packages/hajj");
-      } catch (error) {
-        console.error(values);
-      } finally {
-        setSubmitting(false);
-      }
+      category: UMRAH_PARAM,
+      heading,
+      price,
+      description,
+      hotels_rating,
+      visa_included,
+      flights,
+      transport,
+      sharing,
+      free_ziyarahs,
+      from_date: from_date?.split("T")[0],
+      to_date: to_date?.split("T")[0],
+      departure_airport,
+      transit_hub,
+      price_includes,
+      price_excludes,
+      complementarities,
+      makkah_hotel,
+      medinah_hotel,
+      what_to_expect,
     },
   });
 
-  const { values, errors, touched, handleChange, handleSubmit, isSubmitting } =
-    formik;
+  const { values, errors, touched, handleChange, handleSubmit } = formik;
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getSinglePackage(id));
+    }
+  }, [dispatch, id]);
 
   return (
     <DefaultLayout>
@@ -115,6 +87,7 @@ const CreateHajjPackage = () => {
           <InputField
             label="Heading"
             name="heading"
+            disabled={true}
             value={values.heading}
             onChange={handleChange}
             error={errors.heading && touched.heading ? errors.heading : null}
@@ -123,6 +96,7 @@ const CreateHajjPackage = () => {
             label="Price"
             name="price"
             type="number"
+            disabled={true}
             value={values.price}
             onChange={handleChange}
             error={errors.price && touched.price ? errors.price : null}
@@ -131,6 +105,7 @@ const CreateHajjPackage = () => {
             label="From Date"
             name="from_date"
             type="date"
+            disabled={true}
             value={values.from_date}
             onChange={handleChange}
             error={
@@ -141,6 +116,7 @@ const CreateHajjPackage = () => {
             label="To Date"
             name="to_date"
             type="date"
+            disabled={true}
             value={values.to_date}
             onChange={handleChange}
             error={errors.to_date && touched.to_date ? errors.to_date : null}
@@ -148,6 +124,7 @@ const CreateHajjPackage = () => {
           <SelectField
             label="Hotels Rating"
             name="hotels_rating"
+            disabled={true}
             value={values.hotels_rating}
             onChange={handleChange}
             options={HotelOptions}
@@ -155,6 +132,7 @@ const CreateHajjPackage = () => {
           <SelectField
             label="Departure Airport"
             name="departure_airport"
+            disabled={true}
             value={values.departure_airport}
             onChange={handleChange}
             options={AirportOptions}
@@ -162,6 +140,7 @@ const CreateHajjPackage = () => {
           <InputField
             label="Transit Hub"
             name="transit_hub"
+            disabled={true}
             value={values.transit_hub}
             onChange={handleChange}
             error={
@@ -179,6 +158,7 @@ const CreateHajjPackage = () => {
             </label>
             <Textarea
               name="description"
+              disabled={true}
               value={values.description}
               onChange={handleChange}
               placeholder="Package Description"
@@ -197,30 +177,35 @@ const CreateHajjPackage = () => {
           <CheckboxField
             name="visa_included"
             label="Visa Included"
+            disabled={true}
             checked={values.visa_included}
             onChange={handleChange}
           />
           <CheckboxField
             name="flights"
             label="Flights"
+            disabled={true}
             checked={values.flights}
             onChange={handleChange}
           />
           <CheckboxField
             name="transport"
             label="Transport"
+            disabled={true}
             checked={values.transport}
             onChange={handleChange}
           />
           <CheckboxField
             name="sharing"
             label="Sharing"
+            disabled={true}
             checked={values.sharing}
             onChange={handleChange}
           />
           <CheckboxField
             name="free_ziyarahs"
-            label="free_ziyarahs"
+            label="Free Ziyarahs"
+            disabled={true}
             checked={values.free_ziyarahs}
             onChange={handleChange}
           />
@@ -232,6 +217,7 @@ const CreateHajjPackage = () => {
               key={key}
               name={`price_includes.${key}`}
               label={key}
+              disabled={true}
               checked={values.price_includes[key]}
               onChange={handleChange}
             />
@@ -244,6 +230,7 @@ const CreateHajjPackage = () => {
               key={key}
               name={`price_excludes.${key}`}
               label={key}
+              disabled={true}
               checked={values.price_excludes[key]}
               onChange={handleChange}
             />
@@ -256,6 +243,7 @@ const CreateHajjPackage = () => {
               key={key}
               name={`complementarities.${key}`}
               label={key}
+              disabled={true}
               checked={values.complementarities[key]}
               onChange={handleChange}
             />
@@ -267,6 +255,7 @@ const CreateHajjPackage = () => {
             <InputField
               name="makkah_hotel.hotel_name"
               label="Hotel Name"
+              disabled={true}
               value={values.makkah_hotel?.hotel_name}
               onChange={handleChange}
               error={
@@ -280,6 +269,7 @@ const CreateHajjPackage = () => {
             <SelectField
               name="makkah_hotel.rating"
               label="Rating"
+              disabled={true}
               value={values.makkah_hotel?.rating}
               onChange={handleChange}
               options={HotelOptions}
@@ -295,6 +285,7 @@ const CreateHajjPackage = () => {
               return (
                 <CheckboxField
                   key={key}
+                  disabled={true}
                   name={`makkah_hotel.${key}`}
                   label={key.replace(/_/g, " ")}
                   checked={values.makkah_hotel[key]}
@@ -311,6 +302,7 @@ const CreateHajjPackage = () => {
             <InputField
               name="medinah_hotel.hotel_name"
               label="Hotel Name"
+              disabled={true}
               value={values.medinah_hotel.hotel_name}
               onChange={handleChange}
               error={
@@ -324,6 +316,7 @@ const CreateHajjPackage = () => {
             <SelectField
               name="medinah_hotel.rating"
               label="Rating"
+              disabled={true}
               value={values.medinah_hotel.rating}
               onChange={handleChange}
               options={HotelOptions}
@@ -339,6 +332,7 @@ const CreateHajjPackage = () => {
               return (
                 <CheckboxField
                   key={key}
+                  disabled={true}
                   name={`medinah_hotel.${key}`}
                   label={key.replace(/_/g, " ")}
                   checked={values.medinah_hotel[key]}
@@ -356,18 +350,15 @@ const CreateHajjPackage = () => {
               key={key}
               name={`what_to_expect.${key}`}
               label={key}
+              disabled={true}
               checked={values.what_to_expect[key]}
               onChange={handleChange}
             />
           ))}
         </FormSection>
-
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? <Spinner /> : "Create"}
-        </Button>
       </form>
     </DefaultLayout>
   );
 };
 
-export default CreateHajjPackage;
+export default ViewHajjPackage;

@@ -51,7 +51,7 @@ export const columns = (onDelete, onMediaAdd) => [
         </Link>
         <button
           onClick={() => onMediaAdd(_id)}
-          className="text-violet-500 hover:to-violet-600"
+          className="text-violet-500 hover:to-violet-300"
         >
           <MdPermMedia />
         </button>

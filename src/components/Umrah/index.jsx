@@ -1,9 +1,14 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 
-export const CheckboxField = ({ name, label, checked, onChange }) => (
+export const CheckboxField = ({ name, label, checked, onChange, disabled }) => (
   <label className="flex items-center space-x-2 capitalize">
-    <Checkbox name={name} checked={checked} onChange={onChange} />
+    <Checkbox
+      name={name}
+      checked={checked}
+      onChange={onChange}
+      disabled={disabled}
+    />
     <span>{label.replace(/_/g, " ")}</span>
   </label>
 );
@@ -14,6 +19,7 @@ export const InputField = ({
   type = "text",
   value,
   onChange,
+  disabled,
   error,
 }) => (
   <div className="">
@@ -27,6 +33,7 @@ export const InputField = ({
       name={name}
       type={type}
       value={value}
+      disabled={disabled}
       onChange={onChange}
       placeholder={label}
     />
@@ -34,7 +41,14 @@ export const InputField = ({
   </div>
 );
 
-export const SelectField = ({ label, name, value, onChange, options }) => (
+export const SelectField = ({
+  label,
+  name,
+  value,
+  onChange,
+  options,
+  disabled,
+}) => (
   <div className="">
     <label
       htmlFor={name}
@@ -42,7 +56,7 @@ export const SelectField = ({ label, name, value, onChange, options }) => (
     >
       {label}
     </label>
-    <select name={name} value={value} onChange={onChange}>
+    <select name={name} value={value} onChange={onChange} disabled={disabled}>
       {options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.label}

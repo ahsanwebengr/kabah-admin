@@ -13,7 +13,9 @@ const updatePlanMedia = createAsyncThunk(
         },
       });
       if (response.status === 200) {
-        toast.success("Package media updated successfully");
+        toast.success(
+          response?.data?.message || "Package media updated successfully",
+        );
       }
       return response?.data;
     } catch (error) {

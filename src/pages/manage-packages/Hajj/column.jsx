@@ -1,9 +1,9 @@
 import { alt_img } from "@/assets/images";
-import { FaRegEye, MdDelete, FaEdit } from "@/assets/icons";
+import { FaRegEye, MdDelete, FaEdit, MdPermMedia } from "@/assets/icons";
 import { Link } from "react-router-dom";
 import { BASE_URL } from "@/lib/constants/options";
 
-export const columns = (onDelete) => [
+export const columns = (onDelete, onMediaAdd) => [
   {
     name: "Image",
     selector: ({ heading = "", thumbnail = "" }) => (
@@ -49,6 +49,12 @@ export const columns = (onDelete) => [
         <Link to={`/packages/hajj/update/${_id}`}>
           <FaEdit className="text-gray-800 hover:text-black" />
         </Link>
+        <button
+          onClick={() => onMediaAdd(_id)}
+          className="text-violet-500 hover:to-violet-300"
+        >
+          <MdPermMedia />
+        </button>
       </div>
     ),
   },

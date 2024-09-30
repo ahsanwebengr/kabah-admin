@@ -11,12 +11,17 @@ import { setCurrentPage, setPerPage } from "@/store/features/pagination/slice";
 import { columns } from "./column";
 import { HAJJ_PARAM } from "@/lib/constants/options";
 import DeleteModal from "@/components/Modals/DeleteModal";
+import AddMediaModal from "@/components/Modals/AddMediaModal";
+import { updatePlanMedia } from "@/store/features/media/service";
 
 const Hajj = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
+  const [isMakkahModalOpen, setIsMakkahModalOpen] = useState(false);
   const [selectedPackageId, setSelectedPackageId] = useState(null);
+  const [selectedImageFile, setSelectedImageFile] = useState(null);
+  const [selectedImagePreview, setSelectedImagePreview] = useState(null);
 
   const { plans = [], total = 0 } = useSelector(PackagesData) || {};
   const isLoading = useSelector(PackagesLoading);
@@ -51,6 +56,38 @@ const Hajj = () => {
     setIsOpen(false);
   };
 
+  const onMediaAdd = (id) => {
+    setSelectedPackageId(id);
+    setIsMakkahModalOpen(true);
+  };
+
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append("id", selectedPackageId);
+    formData.append("thumbnail", selectedImageFile);
+
+    try {
+      await dispatch(
+        updatePlanMedia({ id: selectedPackageId, data: formData }),
+      );
+      dispatch(
+        getPackages({
+          page: currentPage,
+          limit: perPage,
+          category: HAJJ_PARAM,
+        }),
+      );
+
+      setSelectedPackageId("");
+      setSelectedImageFile(null);
+      setSelectedImagePreview(null);
+
+      setIsMakkahModalOpen(false);
+    } catch (error) {
+      console.error("Error submitting the form:", error);
+    }
+  };
+
   return (
     <DefaultLayout>
       <Breadcrumb />
@@ -61,7 +98,7 @@ const Hajj = () => {
       </div>
       <div className="rounded-lg border bg-white px-5 pb-2.5 pt-6 shadow-lg sm:px-7 xl:pb-1">
         <Table
-          columns={columns(confirmDelete)}
+          columns={columns(confirmDelete, onMediaAdd)}
           data={plans}
           paginationTotalRows={total}
           paginationPerPage={perPage}
@@ -75,6 +112,16 @@ const Hajj = () => {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         handleDelete={handleDelete}
+      />
+
+      <AddMediaModal
+        isOpen={isMakkahModalOpen}
+        setIsOpen={setIsMakkahModalOpen}
+        handleSubmit={handleSubmit}
+        selectedImageFile={selectedImageFile}
+        setSelectedImageFile={setSelectedImageFile}
+        selectedImagePreview={selectedImagePreview}
+        setSelectedImagePreview={setSelectedImagePreview}
       />
     </DefaultLayout>
   );

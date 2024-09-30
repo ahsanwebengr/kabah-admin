@@ -15,85 +15,71 @@ import {
   HotelOptions,
 } from "@/lib/constants/options";
 import PackageSchema from "@/schema/Package";
-import { createPackage } from "@/store/features/packages/service";
+import {
+  getSinglePackage,
+  updatePackage,
+} from "@/store/features/packages/service";
+import { SelectedPackage } from "@/store/selector";
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 
-const CreateHajjPackage = () => {
-  const dispatch = useDispatch();
+const UpdateHajjPackage = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const {
+    heading = "",
+    price = "",
+    description = "",
+    hotels_rating = "",
+    visa_included = false,
+    flights = false,
+    transport = false,
+    sharing = false,
+    free_ziyarahs = false,
+    from_date = "",
+    to_date = "",
+    departure_airport = "",
+    transit_hub = "",
+    price_includes = {},
+    price_excludes = {},
+    complementarities = {},
+    makkah_hotel = {},
+    medinah_hotel = {},
+    what_to_expect = {},
+  } = useSelector(SelectedPackage) || {};
+
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
       category: HAJJ_PARAM,
-      heading: "",
-      price: "",
-      description: "",
-      hotels_rating: "",
-      visa_included: true,
-      flights: true,
-      transport: true,
-      sharing: true,
-      free_ziyarahs: true,
-      from_date: "",
-      to_date: "",
-      departure_airport: "",
-      transit_hub: "",
-      price_includes: {
-        visa_fee: true,
-        return_flight_fares: true,
-        days_21_hotel_accommodation: true,
-        all_transportation_between_makkah_medinah_airport: true,
-        ziyarahs_in_makkah_medinah: true,
-        emergency_helpline_24_7: true,
-        mina_services_with_ac_tents_mattress_pillow: true,
-        qurbani: true,
-      },
-      price_excludes: {
-        extra_meals: true,
-        any_private_expenses: true,
-      },
-      complementarities: {
-        flight_refreshments: true,
-        e_guide_Umrah_perform: true,
-      },
-      makkah_hotel: {
-        hotel_name: "",
-        rating: "",
-        wheel_chair_friendly: true,
-        walking_from_haram_7_to_10_mins: true,
-        city_view: true,
-        air_conditioned_rooms: true,
-        wifi_available: true,
-        breakfast_can_be_included: true,
-      },
-      medinah_hotel: {
-        hotel_name: "",
-        rating: "",
-        wheel_chair_friendly: true,
-        walking_from_haram_7_to_10_mins: true,
-        city_view: true,
-        air_conditioned_rooms: true,
-        wifi_available: true,
-        breakfast_can_be_included: true,
-      },
-      what_to_expect: {
-        fly_from_uk_to_jeddah_airport: true,
-        makkah_to_medinah_via_same_car: true,
-        driver_picks_you_from_jeddah_airport: true,
-        reach_medinah_hotel_check_in: true,
-        reach_makkah_hotel_check_in: true,
-        ziyarahs_in_medinah_private_car: true,
-        ziyarahs_in_makkah_private_car_driver: true,
-        driver_picks_you_up_back_to_jeddah_airport: true,
-      },
+      heading,
+      price,
+      description,
+      hotels_rating,
+      visa_included,
+      flights,
+      transport,
+      sharing,
+      free_ziyarahs,
+      from_date: from_date?.split("T")[0],
+      to_date: to_date?.split("T")[0],
+      departure_airport,
+      transit_hub,
+      price_includes,
+      price_excludes,
+      complementarities,
+      makkah_hotel,
+      medinah_hotel,
+      what_to_expect,
     },
     validationSchema: PackageSchema,
-    onSubmit: async (values, { resetForm, setSubmitting }) => {
+    onSubmit: async (values, { setSubmitting }) => {
       try {
         setSubmitting(true);
-        await dispatch(createPackage(values)).unwrap();
-        resetForm();
+        await dispatch(updatePackage({ id: id, data: values })).unwrap();
         navigate("/packages/hajj");
       } catch (error) {
         console.error(values);
@@ -105,6 +91,12 @@ const CreateHajjPackage = () => {
 
   const { values, errors, touched, handleChange, handleSubmit, isSubmitting } =
     formik;
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getSinglePackage(id));
+    }
+  }, [dispatch, id]);
 
   return (
     <DefaultLayout>
@@ -363,11 +355,11 @@ const CreateHajjPackage = () => {
         </FormSection>
 
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? <Spinner /> : "Create"}
+          {isSubmitting ? <Spinner /> : "Update"}
         </Button>
       </form>
     </DefaultLayout>
   );
 };
 
-export default CreateHajjPackage;
+export default UpdateHajjPackage;
