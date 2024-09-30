@@ -31,6 +31,10 @@ const CreateUmrahPackage = () => {
       description: "",
       hotels_rating: "",
       visa_included: true,
+      flights: true,
+      transport: true,
+      sharing: true,
+      free_ziyarahs: true,
       from_date: "",
       to_date: "",
       departure_airport: "",
@@ -193,6 +197,30 @@ const CreateUmrahPackage = () => {
             name="visa_included"
             label="Visa Included"
             checked={values.visa_included}
+            onChange={handleChange}
+          />
+          <CheckboxField
+            name="flights"
+            label="Flights"
+            checked={values.flights}
+            onChange={handleChange}
+          />
+          <CheckboxField
+            name="transport"
+            label="Transport"
+            checked={values.transport}
+            onChange={handleChange}
+          />
+          <CheckboxField
+            name="sharing"
+            label="Sharing"
+            checked={values.sharing}
+            onChange={handleChange}
+          />
+          <CheckboxField
+            name="free_ziyarahs"
+            label="free_ziyarahs"
+            checked={values.free_ziyarahs}
             onChange={handleChange}
           />
         </FormSection>

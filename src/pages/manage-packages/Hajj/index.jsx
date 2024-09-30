@@ -10,7 +10,7 @@ import { PackagesData, PackagesLoading } from "@/store/selector";
 import { setCurrentPage, setPerPage } from "@/store/features/pagination/slice";
 import { columns } from "./column";
 import { HAJJ_PARAM } from "@/lib/constants/options";
-import DeleteModal from "@/components/DeleteModal";
+import DeleteModal from "@/components/Modals/DeleteModal";
 
 const Hajj = () => {
   const navigate = useNavigate();

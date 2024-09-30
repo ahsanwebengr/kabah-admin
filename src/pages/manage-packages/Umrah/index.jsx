@@ -10,13 +10,18 @@ import { PackagesData, PackagesLoading } from "@/store/selector";
 import { setCurrentPage, setPerPage } from "@/store/features/pagination/slice";
 import { columns } from "./column";
 import { UMRAH_PARAM } from "@/lib/constants/options";
-import DeleteModal from "@/components/DeleteModal";
+import DeleteModal from "@/components/Modals/DeleteModal";
+import AddMediaModal from "@/components/Modals/AddMediaModal";
+import { updatePlanMedia } from "@/store/features/media/service";
 
 const Umrah = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
+  const [isMediaModalOpen, setIsMediaModalOpen] = useState(false);
   const [selectedPackageId, setSelectedPackageId] = useState(null);
+  const [selectedImageFile, setSelectedImageFile] = useState(null);
+  const [selectedImagePreview, setSelectedImagePreview] = useState(null);
 
   const { plans = [], total = 0 } = useSelector(PackagesData) || {};
   const isLoading = useSelector(PackagesLoading);
@@ -51,6 +56,38 @@ const Umrah = () => {
     setIsOpen(false);
   };
 
+  const onMediaAdd = (id) => {
+    setSelectedPackageId(id);
+    setIsMediaModalOpen(true);
+  };
+
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append("id", selectedPackageId);
+    formData.append("thumbnail", selectedImageFile);
+
+    try {
+      await dispatch(
+        updatePlanMedia({ id: selectedPackageId, data: formData }),
+      );
+      dispatch(
+        getPackages({
+          page: currentPage,
+          limit: perPage,
+          category: UMRAH_PARAM,
+        }),
+      );
+
+      setSelectedPackageId("");
+      setSelectedImageFile(null);
+      setSelectedImagePreview(null);
+
+      setIsMediaModalOpen(false);
+    } catch (error) {
+      console.error("Error submitting the form:", error);
+    }
+  };
+
   return (
     <DefaultLayout>
       <Breadcrumb />
@@ -61,7 +98,7 @@ const Umrah = () => {
       </div>
       <div className="rounded-lg border bg-white px-5 pb-2.5 pt-6 shadow-lg sm:px-7 xl:pb-1">
         <Table
-          columns={columns(confirmDelete)}
+          columns={columns(confirmDelete, onMediaAdd)}
           data={plans}
           paginationTotalRows={total}
           paginationPerPage={perPage}
@@ -75,6 +112,16 @@ const Umrah = () => {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         handleDelete={handleDelete}
+      />
+
+      <AddMediaModal
+        isOpen={isMediaModalOpen}
+        setIsOpen={setIsMediaModalOpen}
+        handleSubmit={handleSubmit}
+        selectedImageFile={selectedImageFile}
+        setSelectedImageFile={setSelectedImageFile}
+        selectedImagePreview={selectedImagePreview}
+        setSelectedImagePreview={setSelectedImagePreview}
       />
     </DefaultLayout>
   );

@@ -13,6 +13,7 @@ const createPackage = createAsyncThunk(
       }
       return response?.data;
     } catch (error) {
+      console.log("🚀 ~ error:", error);
       toast.error("Failed to create Package");
       return rejectWithValue(error.message);
     }
