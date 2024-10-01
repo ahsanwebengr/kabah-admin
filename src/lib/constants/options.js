@@ -23,6 +23,7 @@ const AirportOptions = [
 ];
 
 const HotelOptions = [
+  { value: "economy", label: "Economy" },
   { value: "3_star", label: "3 Star" },
   { value: "4_star", label: "4 Star" },
   { value: "5_star", label: "5 Star" },

@@ -9,6 +9,7 @@ import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa";
 import { FaBlog } from "react-icons/fa6";
+import { IoMdContacts } from "react-icons/io";
 
 export {
   FiMenu,
@@ -22,4 +23,5 @@ export {
   FaEdit,
   FaRegEye,
   FaBlog,
+  IoMdContacts
 };

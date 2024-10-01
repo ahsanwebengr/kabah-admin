@@ -7,6 +7,7 @@ import {
   IoIosArrowUp,
   MdPermMedia,
   FaBlog,
+  IoMdContacts,
 } from "@/assets/icons";
 
 import MenuLinks from "./MenuLinks";
@@ -168,7 +169,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
                   <div className={`overflow-hidden ${!open && "hidden"}`}>
                     <ul className="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
-                      {["package", "blogs"].map((link) => (
+                      {["blogs"].map((link) => (
                         <li key={link}>
                           <NavLink
                             to={`/media/${link}`}
@@ -204,6 +205,19 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               >
                 <FaBlog />
                 Manage Blogs
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink
+                to="/contacts"
+                className={`group flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-white duration-300 ${
+                  (pathname === "/" || pathname.includes("contacts")) &&
+                  "bg-white !text-black"
+                }`}
+              >
+                <IoMdContacts />
+                Contacts
               </NavLink>
             </li>
           </ul>
