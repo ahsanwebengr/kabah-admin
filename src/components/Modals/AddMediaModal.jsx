@@ -5,24 +5,17 @@ import { Dialog, DialogContent, DialogHeader } from "../ui/dialog";
 import { Spinner } from "@/common";
 import { useState } from "react";
 
-const AddMediaModal = ({
-  isOpen,
-  setIsOpen,
-  handleSubmit,
-  setSelectedImageFile,
-}) => {
+const AddMediaModal = ({ isOpen, setIsOpen, handleSubmit }) => {
   const loading = useSelector(MediaLoading);
 
   const [thumbnail, setThumbnail] = useState(null);
   const [makkahHotelImages, setMakkahHotelImages] = useState([]);
-  console.log("🚀 ~ makkahHotelImages:", makkahHotelImages);
   const [medinahHotelImages, setMedinahHotelImages] = useState([]);
 
   const handleThumbnailChange = (event) => {
     const file = event.target.files[0];
     if (file && file.type.startsWith("image/")) {
       setThumbnail(file);
-      setSelectedImageFile(file);
     }
   };
 
@@ -40,13 +33,14 @@ const AddMediaModal = ({
     const formData = new FormData();
 
     if (thumbnail) formData.append("thumbnail", thumbnail);
-    makkahHotelImages.forEach((file, index) => {
-      formData.append(`makkah_hotel_images[${index}]`, file);
-    });
-    medinahHotelImages.forEach((file, index) => {
-      formData.append(`medinah_hotel_images[${index}]`, file);
-    });
+    makkahHotelImages.forEach((file) =>
+      formData.append("makkah_hotel_images", file),
+    );
+    medinahHotelImages.forEach((file) =>
+      formData.append("medinah_hotel_images", file),
+    );
 
+    // Submit the form data
     handleSubmit(formData);
   };
 

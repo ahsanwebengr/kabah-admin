@@ -60,8 +60,6 @@ const Umrah = () => {
   };
 
   const handleSubmit = async (formData) => {
-    formData.append("id", selectedPackageId);
-
     try {
       await dispatch(
         updatePlanMedia({ id: selectedPackageId, data: formData }),
@@ -73,7 +71,6 @@ const Umrah = () => {
           category: UMRAH_PARAM,
         }),
       );
-
       setSelectedPackageId(null);
       setIsMediaModalOpen(false);
     } catch (error) {
@@ -95,7 +92,7 @@ const Umrah = () => {
           data={plans}
           paginationTotalRows={total}
           paginationPerPage={perPage}
-          isPendding={isLoading}
+          isPending={isLoading}
           onChangePage={handlePageChange}
           onChangeRowsPerPage={handlePerRowsChange}
         />
