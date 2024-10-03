@@ -20,8 +20,6 @@ const Umrah = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMediaModalOpen, setIsMediaModalOpen] = useState(false);
   const [selectedPackageId, setSelectedPackageId] = useState(null);
-  const [selectedImageFile, setSelectedImageFile] = useState(null);
-  const [selectedImagePreview, setSelectedImagePreview] = useState(null);
 
   const { plans = [], total = 0 } = useSelector(PackagesData) || {};
   const isLoading = useSelector(PackagesLoading);
@@ -61,10 +59,8 @@ const Umrah = () => {
     setIsMediaModalOpen(true);
   };
 
-  const handleSubmit = async () => {
-    const formData = new FormData();
+  const handleSubmit = async (formData) => {
     formData.append("id", selectedPackageId);
-    formData.append("thumbnail", selectedImageFile);
 
     try {
       await dispatch(
@@ -78,10 +74,7 @@ const Umrah = () => {
         }),
       );
 
-      setSelectedPackageId("");
-      setSelectedImageFile(null);
-      setSelectedImagePreview(null);
-
+      setSelectedPackageId(null);
       setIsMediaModalOpen(false);
     } catch (error) {
       console.error("Error submitting the form:", error);
@@ -118,10 +111,6 @@ const Umrah = () => {
         isOpen={isMediaModalOpen}
         setIsOpen={setIsMediaModalOpen}
         handleSubmit={handleSubmit}
-        selectedImageFile={selectedImageFile}
-        setSelectedImageFile={setSelectedImageFile}
-        selectedImagePreview={selectedImagePreview}
-        setSelectedImagePreview={setSelectedImagePreview}
       />
     </DefaultLayout>
   );

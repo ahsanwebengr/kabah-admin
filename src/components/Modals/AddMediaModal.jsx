@@ -3,27 +3,51 @@ import { MediaLoading } from "@/store/selector";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogHeader } from "../ui/dialog";
 import { Spinner } from "@/common";
+import { useState } from "react";
 
 const AddMediaModal = ({
   isOpen,
   setIsOpen,
   handleSubmit,
-  selectedImageFile,
   setSelectedImageFile,
-  selectedImagePreview,
-  setSelectedImagePreview,
 }) => {
   const loading = useSelector(MediaLoading);
 
-  const handleImageChange = (event) => {
+  const [thumbnail, setThumbnail] = useState(null);
+  const [makkahHotelImages, setMakkahHotelImages] = useState([]);
+  console.log("🚀 ~ makkahHotelImages:", makkahHotelImages);
+  const [medinahHotelImages, setMedinahHotelImages] = useState([]);
+
+  const handleThumbnailChange = (event) => {
     const file = event.target.files[0];
     if (file && file.type.startsWith("image/")) {
+      setThumbnail(file);
       setSelectedImageFile(file);
-      setSelectedImagePreview(URL.createObjectURL(file));
-    } else {
-      setSelectedImageFile(null);
-      setSelectedImagePreview(null);
     }
+  };
+
+  const handleMakkahImagesChange = (event) => {
+    const files = Array.from(event.target.files);
+    setMakkahHotelImages(files);
+  };
+
+  const handleMedinahImagesChange = (event) => {
+    const files = Array.from(event.target.files);
+    setMedinahHotelImages(files);
+  };
+
+  const handleFormSubmit = () => {
+    const formData = new FormData();
+
+    if (thumbnail) formData.append("thumbnail", thumbnail);
+    makkahHotelImages.forEach((file, index) => {
+      formData.append(`makkah_hotel_images[${index}]`, file);
+    });
+    medinahHotelImages.forEach((file, index) => {
+      formData.append(`medinah_hotel_images[${index}]`, file);
+    });
+
+    handleSubmit(formData);
   };
 
   return (
@@ -33,33 +57,53 @@ const AddMediaModal = ({
           <DialogHeader>
             <h3>Add Media for Package</h3>
           </DialogHeader>
+
           <div className="mb-2">
-            <label htmlFor="thumbnail">Add Image</label>
+            <label htmlFor="thumbnail">Add Main Image</label>
             <input
               type="file"
               id="thumbnail"
               className="w-full rounded-md border p-2.5"
               accept="image/*"
-              onChange={handleImageChange}
+              onChange={handleThumbnailChange}
             />
           </div>
 
-          {selectedImagePreview && (
-            <div className="mt-2">
-              <p className="text-sm text-gray-500">Image Preview:</p>
-              <img
-                src={selectedImagePreview}
-                alt="Selected"
-                className="mt-2 h-40 w-full rounded-md object-cover"
-              />
-            </div>
-          )}
+          <div className="mb-2">
+            <label htmlFor="makkahImages">
+              Add Makkah Hotel Images (optional)
+            </label>
+            <input
+              type="file"
+              id="makkahImages"
+              className="w-full rounded-md border p-2.5"
+              accept="image/*"
+              multiple
+              onChange={handleMakkahImagesChange}
+            />
+          </div>
 
-          {selectedImageFile && (
-            <Button onClick={handleSubmit} className="mt-4" disabled={loading}>
-              {loading ? <Spinner /> : "Save Changes"}
-            </Button>
-          )}
+          <div className="mb-2">
+            <label htmlFor="medinahImages">
+              Add Medinah Hotel Images (optional)
+            </label>
+            <input
+              type="file"
+              id="medinahImages"
+              className="w-full rounded-md border p-2.5"
+              accept="image/*"
+              multiple
+              onChange={handleMedinahImagesChange}
+            />
+          </div>
+
+          <Button
+            onClick={handleFormSubmit}
+            className="mt-4"
+            disabled={loading}
+          >
+            {loading ? <Spinner /> : "Save Changes"}
+          </Button>
         </DialogContent>
       </Dialog>
     </div>

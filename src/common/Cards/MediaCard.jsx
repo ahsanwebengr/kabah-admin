@@ -5,7 +5,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { BASE_URL } from "@/lib/constants/options";
+import { BASE_URL, FOLDER_NAME } from "@/lib/constants/options";
 
 const MediaCard = ({ media }) => {
   const { thumbnail = "", heading = "", category = "" } = media || {};
@@ -13,7 +13,7 @@ const MediaCard = ({ media }) => {
     <Card className="hover:border hover:border-primary">
       <CardHeader>
         <img
-          src={`${BASE_URL}/thumbnails/${thumbnail}` || alt_img}
+          src={`${BASE_URL}/${FOLDER_NAME}/${thumbnail}` || alt_img}
           onError={(e) => (e.target.src = alt_img)}
           className="h-60 w-full"
           alt={heading}

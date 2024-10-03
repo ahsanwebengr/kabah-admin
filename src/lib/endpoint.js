@@ -4,7 +4,7 @@ const config = {
   },
   admin: {
     packages: "admin/plans",
-    plan_media: "admin/plan-media",
+    plan_media: "admin/plans-media",
     contacts: "admin/contacts",
   },
 };
