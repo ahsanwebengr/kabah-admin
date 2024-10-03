@@ -1,7 +1,7 @@
 import Breadcrumb from "@/components/Breadcrumb";
 import DefaultLayout from "@/layout/DefaultLayout";
 
-const Blogs = () => {
+const Hotels = () => {
   return (
     <DefaultLayout>
       <Breadcrumb />
@@ -10,4 +10,4 @@ const Blogs = () => {
   );
 };
 
-export default Blogs;
+export default Hotels;

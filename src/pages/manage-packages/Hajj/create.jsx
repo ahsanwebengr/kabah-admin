@@ -29,7 +29,7 @@ const CreateHajjPackage = () => {
       heading: "",
       price: "",
       description: "",
-      hotels_rating: "economy",
+      hotels_rating: "2_star",
       visa_included: true,
       flights: true,
       transport: true,
@@ -59,7 +59,7 @@ const CreateHajjPackage = () => {
       },
       makkah_hotel: {
         hotel_name: "",
-        rating: "economy",
+        rating: "2_star",
         wheel_chair_friendly: true,
         walking_from_haram_7_to_10_mins: true,
         city_view: true,
@@ -69,7 +69,7 @@ const CreateHajjPackage = () => {
       },
       medinah_hotel: {
         hotel_name: "",
-        rating: "economy",
+        rating: "2_star",
         wheel_chair_friendly: true,
         walking_from_haram_7_to_10_mins: true,
         city_view: true,

@@ -1,5 +1,5 @@
 const AirportOptions = [
-  { value: "city", label: "London City" },
+  { value: "london_city", label: "London City" },
   { value: "stansted", label: "London Stansted" },
   { value: "luton", label: "London Luton" },
   { value: "heathrow", label: "London Heathrow" },
@@ -23,7 +23,7 @@ const AirportOptions = [
 ];
 
 const HotelOptions = [
-  { value: "economy", label: "Economy" },
+  { value: "2_star", label: "Economy" },
   { value: "3_star", label: "3 Star" },
   { value: "4_star", label: "4 Star" },
   { value: "5_star", label: "5 Star" },
@@ -32,6 +32,6 @@ const HotelOptions = [
 const UMRAH_PARAM = "umrah";
 const HAJJ_PARAM = "hajj";
 
-export { AirportOptions, HotelOptions, UMRAH_PARAM, HAJJ_PARAM };
+export { AirportOptions, HotelOptions, HAJJ_PARAM, UMRAH_PARAM };
 
 export const BASE_URL = import.meta.env.VITE_API_URL;

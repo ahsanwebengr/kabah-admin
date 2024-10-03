@@ -15,7 +15,7 @@ import ViewContactDetail from "./pages/contacts/view";
 const Login = lazy(() => import("./pages/Login"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Umrah = lazy(() => import("./pages/manage-packages/Umrah"));
-const Blogs = lazy(() => import("./pages/manage-media/blogs"));
+const Hotels = lazy(() => import("./pages/manage-media/hotels"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const routes = [
@@ -29,7 +29,7 @@ const routes = [
   { path: "/packages/hajj/create", element: <CreateHajjPackage /> },
   { path: "/packages/hajj/update/:id", element: <UpdateHajjPackage /> },
   { path: "/packages/hajj/view/:id", element: <ViewHajjPackage /> },
-  { path: "/media/blogs", element: <Blogs /> },
+  { path: "/media/hotels", element: <Hotels /> },
   { path: "/manage-blogs", element: <ManageBlogs /> },
   { path: "/contacts", element: <Contacts /> },
   { path: "/contacts/update/:id", element: <UpdateContactDetail /> },
