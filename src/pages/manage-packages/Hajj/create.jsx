@@ -29,7 +29,7 @@ const CreateHajjPackage = () => {
       heading: "",
       price: "",
       description: "",
-      hotels_rating: "",
+      hotels_rating: "economy",
       visa_included: true,
       flights: true,
       transport: true,
@@ -37,7 +37,7 @@ const CreateHajjPackage = () => {
       free_ziyarahs: true,
       from_date: "",
       to_date: "",
-      departure_airport: "",
+      departure_airport: "london_city",
       transit_hub: "",
       price_includes: {
         visa_fee: true,
@@ -59,7 +59,7 @@ const CreateHajjPackage = () => {
       },
       makkah_hotel: {
         hotel_name: "",
-        rating: "",
+        rating: "economy",
         wheel_chair_friendly: true,
         walking_from_haram_7_to_10_mins: true,
         city_view: true,
@@ -69,7 +69,7 @@ const CreateHajjPackage = () => {
       },
       medinah_hotel: {
         hotel_name: "",
-        rating: "",
+        rating: "economy",
         wheel_chair_friendly: true,
         walking_from_haram_7_to_10_mins: true,
         city_view: true,

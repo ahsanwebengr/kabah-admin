@@ -19,6 +19,7 @@ const updatePlanMedia = createAsyncThunk(
       }
       return response?.data;
     } catch (error) {
+      toast.error(error?.response?.data?.error || "Failed to update Media");
       return rejectWithValue(error.message);
     }
   },
