@@ -15,7 +15,6 @@ const createPackage = createAsyncThunk(
       }
       return response?.data;
     } catch (error) {
-      console.log("🚀 ~ error:", error);
       toast.error(error?.response?.data?.error || "Failed to create Package");
       return rejectWithValue(error.message);
     }
@@ -65,7 +64,7 @@ const deletePackage = createAsyncThunk(
       }
       return response.data;
     } catch (error) {
-      toast.error("Failed to delete package");
+      toast.error(error?.response?.data?.error || "Failed to delete package");
       return rejectWithValue(error.message);
     }
   },
@@ -83,6 +82,7 @@ const updatePackage = createAsyncThunk(
       }
       return response?.data;
     } catch (error) {
+      toast.error(error?.response?.data?.error || "Failed to update package");
       return rejectWithValue(error.message);
     }
   },

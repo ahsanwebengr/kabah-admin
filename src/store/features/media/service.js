@@ -7,7 +7,7 @@ const updatePlanMedia = createAsyncThunk(
   "media/updatePlanMedia",
   async ({ id, data }, { rejectWithValue }) => {
     try {
-      const response = await api.put(`${config.admin.plan_media}${id}`, data, {
+      const response = await api.put(`${config.admin.plan_media}/${id}`, data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
