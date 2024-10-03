@@ -15,7 +15,8 @@ const createPackage = createAsyncThunk(
       }
       return response?.data;
     } catch (error) {
-      toast.error("Failed to create Package");
+      console.log("🚀 ~ error:", error);
+      toast.error(error?.response?.data?.error || "Failed to create Package");
       return rejectWithValue(error.message);
     }
   },
@@ -44,7 +45,7 @@ const getSinglePackage = createAsyncThunk(
   "package/getSinglePackage",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await api.get(`${config.public.packages}${id}`);
+      const response = await api.get(`${config.public.packages}/${id}`);
       return response?.data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -56,7 +57,7 @@ const deletePackage = createAsyncThunk(
   "package/deletePackage",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await api.delete(`${config.admin.packages}${id}`);
+      const response = await api.delete(`${config.admin.packages}/${id}`);
       if (response.status === 200) {
         toast.success(
           response?.data?.message || "Package deleted successfully",
@@ -74,7 +75,7 @@ const updatePackage = createAsyncThunk(
   "package/updatePackage",
   async ({ id, data }, { rejectWithValue }) => {
     try {
-      const response = await api.put(`${config.admin.packages}${id}`, data);
+      const response = await api.put(`${config.admin.packages}/${id}`, data);
       if (response.status === 200) {
         toast.success(
           response?.data?.message || "Package Updated successfully",
