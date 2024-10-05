@@ -147,9 +147,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
             <li>
               <NavLink
-                to="/manage-blogs"
+                to="/blogs"
                 className={`group flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-white duration-300 ${
-                  (pathname === "/" || pathname.includes("manage-blogs")) &&
+                  (pathname === "/" || pathname.includes("blogs")) &&
                   "bg-white !text-black"
                 }`}
               >

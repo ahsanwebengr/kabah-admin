@@ -1,17 +1,31 @@
 import { lazy, Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 import Loader from "./common/Loader";
-import Hajj from "./pages/manage-packages/Hajj";
-import CreateUmrahPackage from "./pages/manage-packages/Umrah/create";
-import UpdateUmrahPackage from "./pages/manage-packages/Umrah/update";
-import ViewUmrahPackage from "./pages/manage-packages/Umrah/view";
-import CreateHajjPackage from "./pages/manage-packages/Hajj/create";
-import ManageBlogs from "./pages/manage-blogs";
-import UpdateHajjPackage from "./pages/manage-packages/Hajj/update";
-import ViewHajjPackage from "./pages/manage-packages/Hajj/view";
-import Contacts from "./pages/contacts";
-import UpdateContactDetail from "./pages/contacts/update";
-import ViewContactDetail from "./pages/contacts/view";
+
+const Hajj = lazy(() => import("./pages/manage-packages/Hajj"));
+const CreateUmrahPackage = lazy(
+  () => import("./pages/manage-packages/Umrah/create"),
+);
+const UpdateUmrahPackage = lazy(
+  () => import("./pages/manage-packages/Umrah/update"),
+);
+const ViewUmrahPackage = lazy(
+  () => import("./pages/manage-packages/Umrah/view"),
+);
+const CreateHajjPackage = lazy(
+  () => import("./pages/manage-packages/Hajj/create"),
+);
+const ManageBlogs = lazy(() => import("./pages/manage-blogs"));
+const UpdateHajjPackage = lazy(
+  () => import("./pages/manage-packages/Hajj/update"),
+);
+const ViewHajjPackage = lazy(() => import("./pages/manage-packages/Hajj/view"));
+const Contacts = lazy(() => import("./pages/contacts"));
+const UpdateContactDetail = lazy(() => import("./pages/contacts/update"));
+const ViewContactDetail = lazy(() => import("./pages/contacts/view"));
+const CreateBlog = lazy(() => import("./pages/manage-blogs/create"));
+const UpdateBlog = lazy(() => import("./pages/manage-blogs/update"));
+const ViewBlog = lazy(() => import("./pages/manage-blogs/view"));
 const Login = lazy(() => import("./pages/Login"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Umrah = lazy(() => import("./pages/manage-packages/Umrah"));
@@ -28,7 +42,10 @@ const routes = [
   { path: "/packages/hajj/create", element: <CreateHajjPackage /> },
   { path: "/packages/hajj/update/:id", element: <UpdateHajjPackage /> },
   { path: "/packages/hajj/view/:id", element: <ViewHajjPackage /> },
-  { path: "/manage-blogs", element: <ManageBlogs /> },
+  { path: "/blogs", element: <ManageBlogs /> },
+  { path: "/blogs/create", element: <CreateBlog /> },
+  { path: "/blogs/update/:id", element: <UpdateBlog /> },
+  { path: "/blogs/View/:id", element: <ViewBlog /> },
   { path: "/contacts", element: <Contacts /> },
   { path: "/contacts/update/:id", element: <UpdateContactDetail /> },
   { path: "/contacts/view/:id", element: <ViewContactDetail /> },
