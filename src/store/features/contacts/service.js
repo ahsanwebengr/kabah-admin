@@ -20,4 +20,17 @@ const getContacts = createAsyncThunk(
   },
 );
 
-export { getContacts };
+const getSingleContacts = createAsyncThunk(
+  "contact/getSingleContacts",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await api.get(`${config.admin.contacts}/${id}`);
+
+      return response?.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  },
+);
+
+export { getContacts, getSingleContacts };

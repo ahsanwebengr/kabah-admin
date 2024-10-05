@@ -92,7 +92,7 @@ const Umrah = () => {
           data={plans}
           paginationTotalRows={total}
           paginationPerPage={perPage}
-          isPending={isLoading}
+          isPendding={isLoading}
           onChangePage={handlePageChange}
           onChangeRowsPerPage={handlePerRowsChange}
         />

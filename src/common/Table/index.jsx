@@ -25,6 +25,7 @@ const Table = ({
       style: {
         fontSize: "16px",
         padding: "6px",
+        height: "80px",
       },
     },
   };

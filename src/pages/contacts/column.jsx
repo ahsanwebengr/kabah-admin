@@ -3,23 +3,38 @@ import { Link } from "react-router-dom";
 
 export const columns = () => [
   {
+    width: "200px",
     name: "Full Name",
     selector: ({ full_name = "" }) => full_name,
     sortable: true,
   },
   {
-    name: "Email Address",
+    width: "250px",
+    name: "Email",
     selector: ({ email = "" }) => email,
     sortable: true,
   },
   {
-    name: "Contact Number",
+    width: "200px",
+    name: "Contact No.",
     selector: ({ contact_no = "" }) => contact_no,
     sortable: true,
   },
   {
-    name: "Hotel",
-    selector: ({ hotel_category = "" }) => hotel_category,
+    name: "Type",
+    selector: ({ type = "" }) => <span className="capitalize">{type}</span>,
+
+    sortable: true,
+  },
+  {
+    name: "Status",
+    selector: ({ status = "" }) => (
+      <span
+        className={`rounded-full px-2 py-1 text-sm font-medium ${status === "pending" && "bg-yellow-50 text-yellow-500 shadow-md"} ${status === "complete" && "bg-green-50 text-green-500 shadow-md"} `}
+      >
+        {status.charAt(0).toUpperCase() + status.slice(1)}
+      </span>
+    ),
     sortable: true,
   },
   {

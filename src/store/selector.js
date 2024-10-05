@@ -12,4 +12,6 @@ export const SelectedPackage = (state) =>
   state?.package?.selectedPackage?.data?.plan;
 
 export const ContactsData = (state) => state?.contact?.contacts?.data?.contacts;
+export const CurrentContactsData = (state) =>
+  state?.contact?.selectedContact?.data?.contacts;
 export const ContactLoading = (state) => state?.contact?.contacts?.isLoading;
