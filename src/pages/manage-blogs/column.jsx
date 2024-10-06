@@ -5,6 +5,7 @@ import { BASE_URL, BLOGS_FOLDER } from "@/lib/constants/options";
 
 export const columns = (onDelete) => [
   {
+    width: "150px",
     name: "Image",
     selector: ({ title = "", image = "" }) => (
       <img
@@ -16,12 +17,14 @@ export const columns = (onDelete) => [
     ),
   },
   {
+    width: "250px",
     name: "Title",
     selector: ({ title = "" }) => title,
     sortable: true,
   },
 
   {
+    width: "450px",
     name: "Description",
     selector: ({ description = "0" }) => description,
     sortable: true,

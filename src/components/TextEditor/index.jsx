@@ -18,6 +18,7 @@ const TextEditor = (
 ) => {
   const modules = {
     toolbar: [
+      [{ header: [1, 2, 3, false] }],
       [{ size: ["small", false, "large", "huge"] }],
       ["bold", "italic", "underline", "strike", "blockquote"],
       [{ list: "ordered" }, { list: "bullet" }],
@@ -32,8 +33,8 @@ const TextEditor = (
       [
         {
           color: [
-            "#000000",
-            "#e60000",
+            "#222222",
+            "#6f4e37",
             "#ff9900",
             "#ffff00",
             "#008a00",
