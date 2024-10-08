@@ -27,6 +27,9 @@ export const CurrentReservationData = (state) =>
 export const CurrentContactsData = (state) =>
   state?.contact?.selectedContact?.data?.contacts;
 
+export const CurrentContactLoading = (state) =>
+  state?.contact?.selectedContact?.isLoading;
+
 export const ContactLoading = (state) => state?.contact?.contacts?.isLoading;
 
 export const BlogsData = (state) => state?.blog?.blogs?.data?.blog;

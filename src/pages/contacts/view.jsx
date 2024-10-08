@@ -1,9 +1,10 @@
+import { Loader } from "@/common";
 import Breadcrumb from "@/components/Breadcrumb";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import DefaultLayout from "@/layout/DefaultLayout";
 import { getSingleContacts } from "@/store/features/contacts/service";
-import { CurrentContactsData } from "@/store/selector";
+import { CurrentContactLoading, CurrentContactsData } from "@/store/selector";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -12,6 +13,7 @@ const ViewContactDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const data = useSelector(CurrentContactsData);
+  const isLoading = useSelector(CurrentContactLoading);
 
   useEffect(() => {
     if (id) {
@@ -61,6 +63,9 @@ const ViewContactDetail = () => {
     { label: "Message", key: "your_message", type: "textarea" },
   ];
 
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
     <DefaultLayout>
       <Breadcrumb />

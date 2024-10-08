@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  deleteContact,
   deleteReservation,
   getContacts,
   getReservations,
@@ -53,18 +54,31 @@ export const contactSlice = createSlice({
         state.contacts.isSuccess = false;
         state.contacts.errorMessage = action.payload;
       })
-      .addCase(getSingleContacts.pending, (state) => {
+      .addCase(deleteContact.pending, (state) => {
         state.contacts.isLoading = true;
       })
-      .addCase(getSingleContacts.fulfilled, (state, action) => {
+      .addCase(deleteContact.fulfilled, (state, action) => {
         state.contacts.isLoading = false;
         state.contacts.isSuccess = true;
-        state.selectedContact.data = action.payload;
+        state.contacts.data = action.payload;
       })
-      .addCase(getSingleContacts.rejected, (state, action) => {
+      .addCase(deleteContact.rejected, (state, action) => {
         state.contacts.isLoading = false;
         state.contacts.isSuccess = false;
         state.contacts.errorMessage = action.payload;
+      })
+      .addCase(getSingleContacts.pending, (state) => {
+        state.selectedContact.isLoading = true;
+      })
+      .addCase(getSingleContacts.fulfilled, (state, action) => {
+        state.selectedContact.isLoading = false;
+        state.selectedContact.isSuccess = true;
+        state.selectedContact.data = action.payload;
+      })
+      .addCase(getSingleContacts.rejected, (state, action) => {
+        state.selectedContact.isLoading = false;
+        state.selectedContact.isSuccess = false;
+        state.selectedContact.errorMessage = action.payload;
       })
       .addCase(getReservations.pending, (state) => {
         state.reservation.isLoading = true;

@@ -28,12 +28,12 @@ export const columns = (onDelete, onMediaAdd) => [
   {
     name: "Hotel Rating",
     selector: ({ hotels_rating = "" }) => (
-      <span className="rounded-full bg-primary px-4 py-2 text-sm font-medium text-white">
+      <div className="mx-3 rounded-full bg-primary px-3 py-1 text-sm font-medium text-white">
         {hotels_rating === "2_star" && "Economy"}
         {hotels_rating === "3_star" && "3 Star"}
         {hotels_rating === "4_star" && "4 Star"}
         {hotels_rating === "5_star" && "5 Star"}
-      </span>
+      </div>
     ),
     sortable: true,
   },

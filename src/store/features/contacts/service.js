@@ -34,6 +34,24 @@ const getSingleContacts = createAsyncThunk(
   },
 );
 
+const deleteContact = createAsyncThunk(
+  "contact/deleteContact",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await api.delete(`${config.admin.contacts}/${id}`);
+
+      if (response.status === 200) {
+        toast.success(response.data?.message || "Delete Contact Success");
+      }
+
+      return response?.data;
+    } catch ({ message, response }) {
+      toast.error(response?.data?.error || "Failed to Delete contact");
+      return rejectWithValue(message);
+    }
+  },
+);
+
 const getReservations = createAsyncThunk(
   "contact/getReservations",
   async ({ page, limit } = {}, { rejectWithValue }) => {
@@ -89,4 +107,5 @@ export {
   getReservations,
   getSingleReservation,
   deleteReservation,
+  deleteContact,
 };

@@ -1,7 +1,7 @@
-import { FaRegEye, FaEdit } from "@/assets/icons";
+import { FaRegEye, FaEdit, MdDelete } from "@/assets/icons";
 import { Link } from "react-router-dom";
 
-export const columns = () => [
+export const columns = (onDelete) => [
   {
     width: "200px",
     name: "Full Name",
@@ -29,11 +29,11 @@ export const columns = () => [
   {
     name: "Status",
     selector: ({ status = "" }) => (
-      <span
-        className={`rounded-full px-2 py-1 text-sm font-medium ${status === "pending" && "bg-yellow-50 text-yellow-500 shadow-md"} ${status === "complete" && "bg-green-50 text-green-500 shadow-md"} `}
+      <div
+        className={`rounded-full px-4 py-1 text-sm font-medium ${status === "pending" && "bg-yellow-50 text-yellow-500"} ${status === "complete" && "bg-green-50 text-green-500"} `}
       >
         {status.charAt(0).toUpperCase() + status.slice(1)}
-      </span>
+      </div>
     ),
     sortable: true,
   },
@@ -47,6 +47,9 @@ export const columns = () => [
         <Link to={`/contacts/update/${_id}`}>
           <FaEdit className="text-gray-800 hover:text-black" />
         </Link>
+        <button onClick={() => onDelete(_id)}>
+          <MdDelete className="text-red-500 hover:text-red-700" />
+        </button>
       </div>
     ),
   },
