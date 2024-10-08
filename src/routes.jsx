@@ -1,7 +1,9 @@
 import { lazy, Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 import Loader from "./common/Loader";
+import ViewReservationDetail from "./pages/reservation/view";
 
+const Reservation = lazy(() => import("./pages/reservation"));
 const Hajj = lazy(() => import("./pages/manage-packages/Hajj"));
 const CreateUmrahPackage = lazy(
   () => import("./pages/manage-packages/Umrah/create"),
@@ -46,6 +48,9 @@ const routes = [
   { path: "/blogs/create", element: <CreateBlog /> },
   { path: "/blogs/update/:id", element: <UpdateBlog /> },
   { path: "/blogs/View/:id", element: <ViewBlog /> },
+  { path: "/reservation", element: <Reservation /> },
+  { path: "/reservation/view/:id", element: <ViewReservationDetail /> },
+  { path: "/reservation/view/:id", element: <ViewReservationDetail /> },
   { path: "/contacts", element: <Contacts /> },
   { path: "/contacts/update/:id", element: <UpdateContactDetail /> },
   { path: "/contacts/view/:id", element: <ViewContactDetail /> },

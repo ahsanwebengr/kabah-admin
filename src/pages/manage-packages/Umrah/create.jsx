@@ -105,8 +105,6 @@ const CreateUmrahPackage = () => {
   const { values, errors, touched, handleChange, handleSubmit, isSubmitting } =
     formik;
 
-  console.log(formik.errors);
-
   return (
     <DefaultLayout>
       <Breadcrumb />

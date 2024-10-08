@@ -18,8 +18,8 @@ const Hajj = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
-  const [isMakkahModalOpen, setIsMakkahModalOpen] = useState(false);
   const [selectedPackageId, setSelectedPackageId] = useState(null);
+  const [isMakkahModalOpen, setIsMakkahModalOpen] = useState(false);
   const [selectedImageFile, setSelectedImageFile] = useState(null);
   const [selectedImagePreview, setSelectedImagePreview] = useState(null);
 

@@ -12,6 +12,17 @@ export const SelectedPackage = (state) =>
   state?.package?.selectedPackage?.data?.plan;
 
 export const ContactsData = (state) => state?.contact?.contacts?.data?.contacts;
+export const ReservationsData = (state) =>
+  state?.contact?.reservation?.data?.order;
+
+export const CurrReservationLoading = (state) =>
+  state?.contact?.currentReservation?.isLoading;
+
+export const ReservationsLoading = (state) =>
+  state?.contact?.reservation?.isLoading;
+
+export const CurrentReservationData = (state) =>
+  state?.contact?.currentReservation?.data?.order;
 
 export const CurrentContactsData = (state) =>
   state?.contact?.selectedContact?.data?.contacts;

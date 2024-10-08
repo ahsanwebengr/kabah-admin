@@ -34,7 +34,7 @@ export const packageSlice = createSlice({
       .addCase(createPackage.fulfilled, (state, action) => {
         state.packages.isLoading = false;
         state.packages.isSuccess = true;
-        state.packages.packages = action.payload;
+        state.packages.data = action.payload;
       })
       .addCase(createPackage.rejected, (state, action) => {
         state.packages.isLoading = false;
@@ -47,7 +47,7 @@ export const packageSlice = createSlice({
       .addCase(getPackages.fulfilled, (state, action) => {
         state.packages.isLoading = false;
         state.packages.isSuccess = true;
-        state.packages.packages = action.payload;
+        state.packages.data = action.payload;
       })
       .addCase(getPackages.rejected, (state, action) => {
         state.packages.isLoading = false;
@@ -60,7 +60,7 @@ export const packageSlice = createSlice({
       .addCase(deletePackage.fulfilled, (state, action) => {
         state.packages.isLoading = false;
         state.packages.isSuccess = true;
-        state.packages.packages = action.payload;
+        state.packages.data = action.payload;
       })
       .addCase(deletePackage.rejected, (state, action) => {
         state.packages.isLoading = false;
@@ -73,7 +73,7 @@ export const packageSlice = createSlice({
       .addCase(updatePackage.fulfilled, (state, action) => {
         state.packages.isLoading = false;
         state.packages.isSuccess = true;
-        state.packages.packages = action.payload;
+        state.packages.data = action.payload;
       })
       .addCase(updatePackage.rejected, (state, action) => {
         state.packages.isLoading = false;

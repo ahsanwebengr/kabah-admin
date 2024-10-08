@@ -8,6 +8,7 @@ const config = {
     plan_media: "admin/plans-media",
     contacts: "admin/contacts",
     blogs: "admin/blogs",
+    orders: "admin/orders",
   },
 };
 

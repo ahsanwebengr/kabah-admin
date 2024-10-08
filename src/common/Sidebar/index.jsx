@@ -170,6 +170,19 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 Contacts
               </NavLink>
             </li>
+
+            <li>
+              <NavLink
+                to="/reservation"
+                className={`group flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-white duration-300 ${
+                  (pathname === "/" || pathname.includes("reservation")) &&
+                  "bg-white !text-black"
+                }`}
+              >
+                <IoMdContacts />
+                Reservation
+              </NavLink>
+            </li>
           </ul>
         </nav>
       </div>
