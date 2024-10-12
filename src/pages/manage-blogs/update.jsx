@@ -18,7 +18,7 @@ const UpdateBlog = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
-    image = "",
+    image = null,
     title = "",
     content = "",
     description = "",
@@ -32,7 +32,7 @@ const UpdateBlog = () => {
       content,
       image,
     },
-    validationSchema: BlogSchema,
+    validationSchema: BlogSchema(true),
     onSubmit: async (values, { resetForm, setSubmitting }) => {
       const formData = new FormData();
       formData.append("title", values.title);
