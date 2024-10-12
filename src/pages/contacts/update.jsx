@@ -1,21 +1,44 @@
 import Breadcrumb from "@/components/Breadcrumb";
 import { Button } from "@/components/ui/button";
 import DefaultLayout from "@/layout/DefaultLayout";
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import {
+  getSingleContacts,
+  updateStatus,
+} from "@/store/features/contacts/service";
+import { CurrentContactsData } from "@/store/selector";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 
 const UpdateContactDetail = () => {
   const { id } = useParams();
-  const [status, setStatus] = useState("pending");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { status: currentStatus = "" } = useSelector(CurrentContactsData) || {};
+
+  const [status, setStatus] = useState(currentStatus);
 
   const handleStatusChange = (e) => {
     setStatus(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Selected status:", status, id);
+    await dispatch(updateStatus({ id, status })).unwrap();
+    navigate("/contacts");
   };
+
+  useEffect(() => {
+    if (currentStatus) {
+      setStatus(currentStatus);
+    }
+  }, [currentStatus]);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getSingleContacts(id));
+    }
+  }, [dispatch, id]);
 
   return (
     <DefaultLayout>

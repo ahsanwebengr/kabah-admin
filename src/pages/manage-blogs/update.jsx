@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { InputField } from "@/components/Umrah";
 import DefaultLayout from "@/layout/DefaultLayout";
 import BlogSchema from "@/schema/Blog";
-import { getSingleBlog } from "@/store/features/blogs/service";
+import { getSingleBlog, updateBlog } from "@/store/features/blogs/service";
 import { CurrentBlogData } from "@/store/selector";
 import { useFormik } from "formik";
 import { useEffect } from "react";
@@ -44,6 +44,7 @@ const UpdateBlog = () => {
 
       try {
         setSubmitting(true);
+        await dispatch(updateBlog({ id, data: formData }));
         resetForm();
         navigate("/blogs");
       } catch (error) {

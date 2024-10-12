@@ -9,6 +9,7 @@ const config = {
     contacts: "admin/contacts",
     blogs: "admin/blogs",
     orders: "admin/orders",
+    stats: "admin/stats",
   },
 };
 

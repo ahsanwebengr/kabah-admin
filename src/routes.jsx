@@ -29,7 +29,7 @@ const CreateBlog = lazy(() => import("./pages/manage-blogs/create"));
 const UpdateBlog = lazy(() => import("./pages/manage-blogs/update"));
 const ViewBlog = lazy(() => import("./pages/manage-blogs/view"));
 const Login = lazy(() => import("./pages/Login"));
-const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Dashboard = lazy(() => import("./pages/dashboard"));
 const Umrah = lazy(() => import("./pages/manage-packages/Umrah"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 

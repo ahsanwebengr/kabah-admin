@@ -6,6 +6,7 @@ import {
   getReservations,
   getSingleContacts,
   getSingleReservation,
+  updateStatus,
 } from "./service";
 
 const initialState = {
@@ -63,6 +64,19 @@ export const contactSlice = createSlice({
         state.contacts.data = action.payload;
       })
       .addCase(deleteContact.rejected, (state, action) => {
+        state.contacts.isLoading = false;
+        state.contacts.isSuccess = false;
+        state.contacts.errorMessage = action.payload;
+      })
+      .addCase(updateStatus.pending, (state) => {
+        state.contacts.isLoading = true;
+      })
+      .addCase(updateStatus.fulfilled, (state, action) => {
+        state.contacts.isLoading = false;
+        state.contacts.isSuccess = true;
+        state.contacts.data = action.payload;
+      })
+      .addCase(updateStatus.rejected, (state, action) => {
         state.contacts.isLoading = false;
         state.contacts.isSuccess = false;
         state.contacts.errorMessage = action.payload;
