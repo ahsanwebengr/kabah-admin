@@ -2,29 +2,52 @@ import { brand_logo_2 } from "@/assets/images";
 import { Spinner } from "@/common";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import api from "@/lib/api";
+import config from "@/lib/endpoint";
 import LoginSchema from "@/schema/Login";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import Cookies from "js-cookie";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
+  const token = Cookies.get("accessToken");
+  const location = useLocation();
+
   const initialValues = {
-    email: "",
-    password: "",
+    email: "admin@example.com",
+    password: "Pa$w0rd!",
   };
 
-  const handleSubmit = (values, { setSubmitting }) => {
-
-    setTimeout(() => {
+  const handleSubmit = async (values, { setSubmitting }) => {
+    try {
+      setSubmitting(true);
+      const response = await api.post(`${config.admin.login}`, values);
+      if (response.status === 200) {
+        navigate("/dashboard");
+        Cookies.set("accessToken", response?.data?.content?.accessToken);
+        toast.success(response?.data?.message || "Logged in successfully");
+      }
+      return response?.data;
+    } catch ({ message, response }) {
       setSubmitting(false);
-      console.log("Form submitted");
-    }, 2000);
-
-    navigate("/dashboard");
-
-    toast.success("Logged in Successfully!");
+      toast.error(response?.data?.error || "Failed to Login");
+    } finally {
+      setSubmitting(false);
+    }
   };
+  useEffect(() => {
+    if (token) {
+      const from = location.state?.from?.pathname || "/dashboard";
+      navigate(from, { replace: true });
+    }
+  }, [token, navigate, location]);
+
+  if (token) {
+    return null;
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">

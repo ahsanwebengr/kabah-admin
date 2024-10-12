@@ -10,6 +10,8 @@ const config = {
     blogs: "admin/blogs",
     orders: "admin/orders",
     stats: "admin/stats",
+    login: "admin/login",
+    logout: "admin/logOut",
   },
 };
 

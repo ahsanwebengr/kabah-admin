@@ -1,8 +1,9 @@
 import { lazy, Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 import Loader from "./common/Loader";
-import ViewReservationDetail from "./pages/reservation/view";
+import ProtectedRoute from "./components/protected-route";
 
+const ViewReservationDetail = lazy(() => import("./pages/reservation/view"));
 const Reservation = lazy(() => import("./pages/reservation"));
 const Hajj = lazy(() => import("./pages/manage-packages/Hajj"));
 const CreateUmrahPackage = lazy(
@@ -35,25 +36,150 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 
 const routes = [
   { path: "/", element: <Login /> },
-  { path: "/dashboard", element: <Dashboard /> },
-  { path: "/packages/umrah", element: <Umrah /> },
-  { path: "/packages/umrah/create", element: <CreateUmrahPackage /> },
-  { path: "/packages/umrah/update/:id", element: <UpdateUmrahPackage /> },
-  { path: "/packages/umrah/view/:id", element: <ViewUmrahPackage /> },
-  { path: "/packages/hajj", element: <Hajj /> },
-  { path: "/packages/hajj/create", element: <CreateHajjPackage /> },
-  { path: "/packages/hajj/update/:id", element: <UpdateHajjPackage /> },
-  { path: "/packages/hajj/view/:id", element: <ViewHajjPackage /> },
-  { path: "/blogs", element: <ManageBlogs /> },
-  { path: "/blogs/create", element: <CreateBlog /> },
-  { path: "/blogs/update/:id", element: <UpdateBlog /> },
-  { path: "/blogs/View/:id", element: <ViewBlog /> },
-  { path: "/reservation", element: <Reservation /> },
-  { path: "/reservation/view/:id", element: <ViewReservationDetail /> },
-  { path: "/reservation/view/:id", element: <ViewReservationDetail /> },
-  { path: "/contacts", element: <Contacts /> },
-  { path: "/contacts/update/:id", element: <UpdateContactDetail /> },
-  { path: "/contacts/view/:id", element: <ViewContactDetail /> },
+  {
+    path: "/dashboard",
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/packages/umrah",
+    element: (
+      <ProtectedRoute>
+        <Umrah />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/packages/umrah/create",
+    element: (
+      <ProtectedRoute>
+        <CreateUmrahPackage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/packages/umrah/update/:id",
+    element: (
+      <ProtectedRoute>
+        <UpdateUmrahPackage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/packages/umrah/view/:id",
+    element: (
+      <ProtectedRoute>
+        <ViewUmrahPackage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/packages/hajj",
+    element: (
+      <ProtectedRoute>
+        <Hajj />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/packages/hajj/create",
+    element: (
+      <ProtectedRoute>
+        <CreateHajjPackage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/packages/hajj/update/:id",
+    element: (
+      <ProtectedRoute>
+        <UpdateHajjPackage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/packages/hajj/view/:id",
+    element: (
+      <ProtectedRoute>
+        <ViewHajjPackage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/blogs",
+    element: (
+      <ProtectedRoute>
+        <ManageBlogs />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/blogs/create",
+    element: (
+      <ProtectedRoute roles={["ADMIN", "EDITOR"]}>
+        <CreateBlog />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/blogs/update/:id",
+    element: (
+      <ProtectedRoute roles={["ADMIN", "EDITOR"]}>
+        <UpdateBlog />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/blogs/view/:id",
+    element: (
+      <ProtectedRoute>
+        <ViewBlog />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/reservation",
+    element: (
+      <ProtectedRoute>
+        <Reservation />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/reservation/view/:id",
+    element: (
+      <ProtectedRoute>
+        <ViewReservationDetail />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/contacts",
+    element: (
+      <ProtectedRoute>
+        <Contacts />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/contacts/update/:id",
+    element: (
+      <ProtectedRoute>
+        <UpdateContactDetail />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/contacts/view/:id",
+    element: (
+      <ProtectedRoute>
+        <ViewContactDetail />
+      </ProtectedRoute>
+    ),
+  },
   { path: "*", element: <NotFound /> },
 ];
 
