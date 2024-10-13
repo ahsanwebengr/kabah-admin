@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 const StatCard = ({ title, text, icon, price }) => {
   const isLoading = useSelector(StatsLoading);
   return (
-    <article className="rounded-lg bg-white px-4 pb-7 pt-4 shadow">
+    <article className="rounded-lg bg-white px-4 pb-7 pt-4 shadow hover:shadow-md">
       {isLoading ? (
         <div className="flex animate-pulse flex-col gap-4">
           <div className="h-6 w-1/2 self-end rounded bg-gray-300"></div>

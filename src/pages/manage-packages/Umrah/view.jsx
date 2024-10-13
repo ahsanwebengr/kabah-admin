@@ -1,3 +1,4 @@
+import { alt_img } from "@/assets/images";
 import Breadcrumb from "@/components/Breadcrumb";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -9,6 +10,8 @@ import {
 import DefaultLayout from "@/layout/DefaultLayout";
 import {
   AirportOptions,
+  BASE_URL,
+  FOLDER_NAME,
   HotelOptions,
   UMRAH_PARAM,
 } from "@/lib/constants/options";
@@ -295,6 +298,18 @@ const ViewUmrahPackage = () => {
             }
             return null;
           })}
+
+          <div className="my-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:col-span-2 md:grid-cols-3">
+            {values.makkah_hotel?.makkah_hotel_images?.map((image, index) => (
+              <img
+                key={index}
+                src={`${BASE_URL}/${FOLDER_NAME}/${image}` || alt_img}
+                onError={(e) => (e.target.src = alt_img)}
+                alt={`Makkah Hotel ${index + 1}`}
+                className="h-48 w-full rounded-md border object-cover"
+              />
+            ))}
+          </div>
         </FormSection>
 
         <FormSection title="Madinah Hotel:">
@@ -342,6 +357,18 @@ const ViewUmrahPackage = () => {
             }
             return null;
           })}
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:col-span-2 md:grid-cols-3">
+            {values.medinah_hotel?.medinah_hotel_images?.map((image, index) => (
+              <img
+                key={index}
+                src={`${BASE_URL}/${FOLDER_NAME}/${image}` || alt_img}
+                alt={`Makkah Hotel ${index + 1}`}
+                onError={(e) => (e.target.src = alt_img)}
+                className="h-48 w-full rounded-md border object-cover"
+              />
+            ))}
+          </div>
         </FormSection>
 
         <FormSection title="What to Expect:">

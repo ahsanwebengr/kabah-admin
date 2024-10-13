@@ -1,3 +1,4 @@
+import { alt_img } from "@/assets/images";
 import Breadcrumb from "@/components/Breadcrumb";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -9,6 +10,8 @@ import {
 import DefaultLayout from "@/layout/DefaultLayout";
 import {
   AirportOptions,
+  BASE_URL,
+  FOLDER_NAME,
   HotelOptions,
   UMRAH_PARAM,
 } from "@/lib/constants/options";
@@ -276,25 +279,38 @@ const ViewHajjPackage = () => {
             />
           </div>
 
-          {Object.keys(values.makkah_hotel).map((key) => {
-            if (
-              key !== "hotel_name" &&
-              key !== "rating" &&
-              key !== "makkah_hotel_images"
-            ) {
-              return (
-                <CheckboxField
-                  key={key}
-                  disabled={true}
-                  name={`makkah_hotel.${key}`}
-                  label={key.replace(/_/g, " ")}
-                  checked={values.makkah_hotel[key]}
-                  onChange={handleChange}
-                />
-              );
-            }
-            return null;
-          })}
+          <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+            {Object.keys(values.makkah_hotel).map((key) => {
+              if (
+                key !== "hotel_name" &&
+                key !== "rating" &&
+                key !== "makkah_hotel_images"
+              ) {
+                return (
+                  <CheckboxField
+                    key={key}
+                    disabled={true}
+                    name={`makkah_hotel.${key}`}
+                    label={key.replace(/_/g, " ")}
+                    checked={values.makkah_hotel[key]}
+                    onChange={handleChange}
+                  />
+                );
+              }
+              return null;
+            })}
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:col-span-2 md:grid-cols-3">
+            {values.makkah_hotel?.makkah_hotel_images?.map((image, index) => (
+              <img
+                key={index}
+                src={`${BASE_URL}/${FOLDER_NAME}/${image}` || alt_img}
+                alt={`Makkah Hotel ${index + 1}`}
+                className="h-48 w-full rounded-md object-cover"
+              />
+            ))}
+          </div>
         </FormSection>
 
         <FormSection title="Madinah Hotel:">
@@ -342,6 +358,17 @@ const ViewHajjPackage = () => {
             }
             return null;
           })}
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:col-span-2 md:grid-cols-3">
+            {values.medinah_hotel?.medinah_hotel_images?.map((image, index) => (
+              <img
+                key={index}
+                src={`${BASE_URL}/${FOLDER_NAME}/${image}` || alt_img}
+                alt={`Makkah Hotel ${index + 1}`}
+                className="h-48 w-full rounded-md object-cover"
+              />
+            ))}
+          </div>
         </FormSection>
 
         <FormSection title="What to Expect:">

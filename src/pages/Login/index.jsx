@@ -17,8 +17,8 @@ const Login = () => {
   const location = useLocation();
 
   const initialValues = {
-    email: "admin@example.com",
-    password: "Pa$w0rd!",
+    email: "",
+    password: "",
   };
 
   const handleSubmit = async (values, { setSubmitting }) => {
