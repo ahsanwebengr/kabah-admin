@@ -307,7 +307,8 @@ const ViewHajjPackage = () => {
                 key={index}
                 src={`${BASE_URL}/${FOLDER_NAME}/${image}` || alt_img}
                 alt={`Makkah Hotel ${index + 1}`}
-                className="h-48 w-full rounded-md object-cover"
+                onError={(e) => (e.target.src = alt_img)}
+                className="h-48 w-full rounded-md border object-cover"
               />
             ))}
           </div>
@@ -365,7 +366,8 @@ const ViewHajjPackage = () => {
                 key={index}
                 src={`${BASE_URL}/${FOLDER_NAME}/${image}` || alt_img}
                 alt={`Makkah Hotel ${index + 1}`}
-                className="h-48 w-full rounded-md object-cover"
+                onError={(e) => (e.target.src = alt_img)}
+                className="h-48 w-full rounded-md border object-cover"
               />
             ))}
           </div>

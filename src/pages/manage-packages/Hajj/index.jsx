@@ -19,9 +19,7 @@ const Hajj = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedPackageId, setSelectedPackageId] = useState(null);
-  const [isMakkahModalOpen, setIsMakkahModalOpen] = useState(false);
-  const [selectedImageFile, setSelectedImageFile] = useState(null);
-  const [selectedImagePreview, setSelectedImagePreview] = useState(null);
+  const [isMediaModalOpen, setIsMediaModalOpen] = useState(false);
 
   const { plans = [], total = 0 } = useSelector(PackagesData) || {};
   const isLoading = useSelector(PackagesLoading);
@@ -58,14 +56,10 @@ const Hajj = () => {
 
   const onMediaAdd = (id) => {
     setSelectedPackageId(id);
-    setIsMakkahModalOpen(true);
+    setIsMediaModalOpen(true);
   };
 
-  const handleSubmit = async () => {
-    const formData = new FormData();
-    formData.append("id", selectedPackageId);
-    formData.append("thumbnail", selectedImageFile);
-
+  const handleSubmit = async (formData) => {
     try {
       await dispatch(
         updatePlanMedia({ id: selectedPackageId, data: formData }),
@@ -77,12 +71,8 @@ const Hajj = () => {
           category: HAJJ_PARAM,
         }),
       );
-
-      setSelectedPackageId("");
-      setSelectedImageFile(null);
-      setSelectedImagePreview(null);
-
-      setIsMakkahModalOpen(false);
+      setSelectedPackageId(null);
+      setIsMediaModalOpen(false);
     } catch (error) {
       console.error("Error submitting the form:", error);
     }
@@ -115,13 +105,9 @@ const Hajj = () => {
       />
 
       <AddMediaModal
-        isOpen={isMakkahModalOpen}
-        setIsOpen={setIsMakkahModalOpen}
+        isOpen={isMediaModalOpen}
+        setIsOpen={setIsMediaModalOpen}
         handleSubmit={handleSubmit}
-        selectedImageFile={selectedImageFile}
-        setSelectedImageFile={setSelectedImageFile}
-        selectedImagePreview={selectedImagePreview}
-        setSelectedImagePreview={setSelectedImagePreview}
       />
     </DefaultLayout>
   );
