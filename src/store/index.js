@@ -5,6 +5,7 @@ import paginationSlice from "./features/pagination/slice";
 import contactSlice from "./features/contacts/slice";
 import blogSlice from "./features/blogs/slice";
 import statsSlice from "./features/stats/slice";
+import flightSlice from "./features/flights/slice";
 
 const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
     media: mediaSlice,
     contact: contactSlice,
     blog: blogSlice,
+    flight: flightSlice,
     stats: statsSlice,
   },
 });

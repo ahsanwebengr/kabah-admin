@@ -43,3 +43,4 @@ export const BlogLoading = (state) => state?.blog?.blogs?.isLoading;
 export const StatsData = (state) => state?.stats?.stats?.data;
 export const StatsLoading = (state) => state?.stats?.stats?.isLoading;
 
+export const FlightsData = (state) => state?.flight?.flights;

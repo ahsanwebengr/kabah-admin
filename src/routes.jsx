@@ -2,7 +2,9 @@ import { lazy, Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 import Loader from "./common/Loader";
 import ProtectedRoute from "./components/protected-route";
+import CreateFlight from "./pages/flights/create";
 
+const Flights = lazy(() => import("./pages/flights"));
 const ViewReservationDetail = lazy(() => import("./pages/reservation/view"));
 const Reservation = lazy(() => import("./pages/reservation"));
 const Hajj = lazy(() => import("./pages/manage-packages/Hajj"));
@@ -119,7 +121,7 @@ const routes = [
   {
     path: "/blogs/create",
     element: (
-      <ProtectedRoute roles={["ADMIN", "EDITOR"]}>
+      <ProtectedRoute>
         <CreateBlog />
       </ProtectedRoute>
     ),
@@ -127,7 +129,7 @@ const routes = [
   {
     path: "/blogs/update/:id",
     element: (
-      <ProtectedRoute roles={["ADMIN", "EDITOR"]}>
+      <ProtectedRoute>
         <UpdateBlog />
       </ProtectedRoute>
     ),
@@ -177,6 +179,22 @@ const routes = [
     element: (
       <ProtectedRoute>
         <ViewContactDetail />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/flights",
+    element: (
+      <ProtectedRoute>
+        <Flights />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/flights/create",
+    element: (
+      <ProtectedRoute>
+        <CreateFlight />
       </ProtectedRoute>
     ),
   },

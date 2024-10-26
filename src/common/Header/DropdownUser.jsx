@@ -10,7 +10,7 @@ import { Spinner } from "@/common";
 
 const DropdownUser = () => {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] =     useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef(null);
@@ -98,7 +98,7 @@ const DropdownUser = () => {
           ) : (
             <>
               <RxExit />
-              <spna>Log Out</spna>
+              <span>Log Out</span>
             </>
           )}
         </button>

@@ -7,6 +7,7 @@ import {
   IoIosArrowUp,
   FaBlog,
   IoMdContacts,
+  FaPlaneDeparture,
 } from "@/assets/icons";
 
 import MenuLinks from "./MenuLinks";
@@ -181,6 +182,19 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               >
                 <IoMdContacts />
                 Reservation
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink
+                to="/flights"
+                className={`group flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-white duration-300 ${
+                  (pathname === "/" || pathname.includes("flights")) &&
+                  "bg-white !text-black"
+                }`}
+              >
+                <FaPlaneDeparture />
+                Flights
               </NavLink>
             </li>
           </ul>

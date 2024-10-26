@@ -17,8 +17,10 @@ import { IoHappy } from "react-icons/io5";
 import { LuPackage2 } from "react-icons/lu";
 import { TbPackageExport } from "react-icons/tb";
 import { GoPackage } from "react-icons/go";
+import { FaPlaneDeparture } from "react-icons/fa";
 
 export {
+  FaPlaneDeparture,
   FiMenu,
   MdOutlineDashboard,
   BiSolidPackage,
@@ -37,5 +39,5 @@ export {
   IoHappy,
   LuPackage2,
   TbPackageExport,
-  GoPackage
+  GoPackage,
 };
