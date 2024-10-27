@@ -2,8 +2,9 @@ import { lazy, Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 import Loader from "./common/Loader";
 import ProtectedRoute from "./components/protected-route";
-import CreateFlight from "./pages/flights/create";
 
+const CreateFlight = lazy(() => import("./pages/flights/create"));
+const UpdateFlight = lazy(() => import("./pages/flights/update"));
 const Flights = lazy(() => import("./pages/flights"));
 const ViewReservationDetail = lazy(() => import("./pages/reservation/view"));
 const Reservation = lazy(() => import("./pages/reservation"));
@@ -195,6 +196,14 @@ const routes = [
     element: (
       <ProtectedRoute>
         <CreateFlight />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/flights/update/:id",
+    element: (
+      <ProtectedRoute>
+        <UpdateFlight />
       </ProtectedRoute>
     ),
   },

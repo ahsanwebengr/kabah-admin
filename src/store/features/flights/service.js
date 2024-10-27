@@ -57,7 +57,7 @@ const updateFlight = createAsyncThunk(
   async ({ id, data }, { rejectWithValue }) => {
     try {
       const response = await api.put(`${config.admin.flights}/${id}`, data);
-      if (response.status === 200) {
+      if (response.status === 201) {
         toast.success(response?.data?.message || "Flight Update successfully");
       }
       return response?.data;

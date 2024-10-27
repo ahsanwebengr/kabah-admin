@@ -44,3 +44,5 @@ export const StatsData = (state) => state?.stats?.stats?.data;
 export const StatsLoading = (state) => state?.stats?.stats?.isLoading;
 
 export const FlightsData = (state) => state?.flight?.flights;
+
+export const CurrentFlightData = (state) => state?.flight?.selectedFlight?.data;

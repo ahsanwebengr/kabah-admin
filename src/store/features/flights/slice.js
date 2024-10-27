@@ -15,7 +15,7 @@ const initialState = {
     errorMessage: "",
   },
   selectedFlight: {
-    data: null,
+    data: {},
     isLoading: false,
     isSuccess: false,
     errorMessage: "",
