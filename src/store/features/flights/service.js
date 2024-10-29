@@ -54,9 +54,9 @@ const deleteFlight = createAsyncThunk(
 
 const updateFlight = createAsyncThunk(
   "flight/updateFlight",
-  async ({ id, data }, { rejectWithValue }) => {
+  async ({ id, values }, { rejectWithValue }) => {
     try {
-      const response = await api.put(`${config.admin.flights}/${id}`, data);
+      const response = await api.put(`${config.admin.flights}/${id}`, values);
       if (response.status === 201) {
         toast.success(response?.data?.message || "Flight Update successfully");
       }

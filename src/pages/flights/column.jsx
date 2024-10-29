@@ -25,7 +25,7 @@ export const columns = (onDelete) => [
     sortable: true,
   },
   {
-    name: "Fligh No.",
+    name: "Flight No.",
     selector: ({ flightsNumber = "" }) => flightsNumber,
     sortable: true,
   },
