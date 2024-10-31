@@ -227,7 +227,7 @@ const routes = [
     ),
   },
   {
-    path: "/additional-pages/update/:id",
+    path: "/additional-pages/update/:slug/:id",
     element: (
       <ProtectedRoute>
         <UpdateAdditonalPages />

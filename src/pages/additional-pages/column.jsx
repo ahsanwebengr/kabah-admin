@@ -23,12 +23,12 @@ export const column = (onDelete) => [
 
   {
     name: "Actions",
-    cell: ({ _id }) => (
+    cell: ({ _id, slug }) => (
       <div className="flex gap-2">
         <button onClick={() => onDelete(_id)}>
           <MdDelete className="text-red-400 hover:text-red-600" />
         </button>
-        <Link to={`/additional-pages/update/${_id}`}>
+        <Link to={`/additional-pages/update/${slug}/${_id}`}>
           <FaEdit className="text-gray-800 hover:text-black" />
         </Link>
       </div>

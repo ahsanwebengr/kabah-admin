@@ -16,7 +16,7 @@ import { CurrentPagesData } from "@/store/selector";
 import PagesSchema from "@/schema/Pages";
 
 const UpdateAdditonalPages = () => {
-  const { id } = useParams();
+  const { id, slug } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { page: { content = "", title = "" } = {} } =
@@ -54,10 +54,10 @@ const UpdateAdditonalPages = () => {
   } = formik;
 
   useEffect(() => {
-    if (id) {
-      dispatch(getOnePage(id));
+    if (slug) {
+      dispatch(getOnePage(slug));
     }
-  }, [dispatch, id]);
+  }, [dispatch, slug]);
 
   return (
     <DefaultLayout>
