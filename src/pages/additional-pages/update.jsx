@@ -32,7 +32,7 @@ const UpdateAdditonalPages = () => {
     onSubmit: async (values, { resetForm, setSubmitting }) => {
       try {
         setSubmitting(true);
-        await dispatch(updateAdditionalPage(values)).unwrap();
+        await dispatch(updateAdditionalPage({ id, data: values })).unwrap();
         resetForm();
         navigate("/additional-pages");
       } catch (error) {
