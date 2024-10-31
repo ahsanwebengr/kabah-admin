@@ -46,3 +46,6 @@ export const StatsLoading = (state) => state?.stats?.stats?.isLoading;
 export const FlightsData = (state) => state?.flight?.flights;
 
 export const CurrentFlightData = (state) => state?.flight?.selectedFlight?.data;
+
+export const PagesData = (state) => state?.pages?.additionalPages;
+export const CurrentPagesData = (state) => state?.pages?.selectedPage?.data;

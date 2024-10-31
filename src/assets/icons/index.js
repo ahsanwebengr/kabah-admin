@@ -18,8 +18,10 @@ import { LuPackage2 } from "react-icons/lu";
 import { TbPackageExport } from "react-icons/tb";
 import { GoPackage } from "react-icons/go";
 import { FaPlaneDeparture } from "react-icons/fa";
+import { FaRegNewspaper } from "react-icons/fa6";
 
 export {
+  FaRegNewspaper,
   FaPlaneDeparture,
   FiMenu,
   MdOutlineDashboard,

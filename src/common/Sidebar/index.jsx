@@ -8,6 +8,7 @@ import {
   FaBlog,
   IoMdContacts,
   FaPlaneDeparture,
+  FaRegNewspaper,
 } from "@/assets/icons";
 
 import MenuLinks from "./MenuLinks";
@@ -195,6 +196,19 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               >
                 <FaPlaneDeparture />
                 Flights
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink
+                to="/additional-pages"
+                className={`group flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-white duration-300 ${
+                  (pathname === "/" || pathname.includes("additional-pages")) &&
+                  "bg-white !text-black"
+                }`}
+              >
+                <FaRegNewspaper />
+                Additional Pages
               </NavLink>
             </li>
           </ul>

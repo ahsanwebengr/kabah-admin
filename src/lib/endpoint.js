@@ -3,6 +3,7 @@ const config = {
     packages: "public/plans",
     blogs: "public/blogs",
     flights: "public/flights",
+    pages: "public/additional-pages",
   },
   admin: {
     packages: "admin/plans",
@@ -14,6 +15,7 @@ const config = {
     login: "admin/login",
     logout: "admin/logOut",
     flights: "admin/flights",
+    pages: "admin/additional-pages",
   },
 };
 

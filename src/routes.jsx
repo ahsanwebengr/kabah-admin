@@ -2,6 +2,9 @@ import { lazy, Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 import Loader from "./common/Loader";
 import ProtectedRoute from "./components/protected-route";
+import AdditionalPages from "./pages/additional-pages";
+import CreateAdditonalPages from "./pages/additional-pages/create";
+import UpdateAdditonalPages from "./pages/additional-pages/update";
 
 const CreateFlight = lazy(() => import("./pages/flights/create"));
 const UpdateFlight = lazy(() => import("./pages/flights/update"));
@@ -204,6 +207,30 @@ const routes = [
     element: (
       <ProtectedRoute>
         <UpdateFlight />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/additional-pages",
+    element: (
+      <ProtectedRoute>
+        <AdditionalPages />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/additional-pages/create",
+    element: (
+      <ProtectedRoute>
+        <CreateAdditonalPages />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/additional-pages/update/:id",
+    element: (
+      <ProtectedRoute>
+        <UpdateAdditonalPages />
       </ProtectedRoute>
     ),
   },
