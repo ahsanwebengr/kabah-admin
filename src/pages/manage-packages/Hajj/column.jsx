@@ -22,13 +22,13 @@ export const columns = (onDelete, onMediaAdd) => [
   },
   {
     name: "Price",
-    selector: ({ price = 0 }) => `$ ${price}`,
+    selector: ({ price = 0 }) => `£ ${price}`,
     sortable: true,
   },
   {
     name: "Hotel Rating",
     selector: ({ hotels_rating = "" }) => (
-      <div className="rounded-full bg-primary px-3 py-1 mx-3 text-sm font-medium text-white">
+      <div className="mx-3 rounded-full bg-primary px-3 py-1 text-sm font-medium text-white">
         {hotels_rating === "2_star" && "Economy"}
         {hotels_rating === "3_star" && "3 Star"}
         {hotels_rating === "4_star" && "4 Star"}

@@ -22,7 +22,7 @@ export const columns = (onDelete, onMediaAdd) => [
   },
   {
     name: "Price",
-    selector: ({ price = 0 }) => `$ ${price}`,
+    selector: ({ price = 0 }) => `£ ${price}`,
     sortable: true,
   },
   {

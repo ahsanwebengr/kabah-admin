@@ -21,7 +21,7 @@ export const columns = (onDelete) => [
   },
   {
     name: "Price",
-    selector: ({ price = "" }) => <span>$ {price}</span>,
+    selector: ({ price = "" }) => <span>£ {price}</span>,
     sortable: true,
   },
   {
