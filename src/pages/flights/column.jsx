@@ -10,13 +10,13 @@ export const columns = (onDelete) => [
 
   {
     name: "From",
-    selector: ({ from = "" }) => from,
+    selector: ({ from = "" }) => <div className="capitalize">{from}</div>,
     sortable: true,
   },
 
   {
     name: "To",
-    selector: ({ to = "" }) => to,
+    selector: ({ to = "" }) => <div className="capitalize">{to}</div>,
     sortable: true,
   },
   {
