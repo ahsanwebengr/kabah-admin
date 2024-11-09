@@ -2,7 +2,6 @@ import { FaRegEye, MdDelete } from "@/assets/icons";
 import { Link } from "react-router-dom";
 
 export const columns = (handleDelete) => [
-    
   {
     width: "200px",
     name: "Full Name",
@@ -22,12 +21,19 @@ export const columns = (handleDelete) => [
     sortable: true,
   },
   {
+    width: "200px",
     name: "Package",
     selector: ({ plan_id: { category = "" } = {} }) => (
       <div className="mx-1 rounded-full bg-green-50 px-4 py-2 capitalize text-green-500">
         {category}
       </div>
     ),
+    sortable: true,
+  },
+  {
+    width: "200px",
+    name: "Package Name",
+    selector: ({ plan_id: { heading = "" } = {} }) => heading,
     sortable: true,
   },
   {
