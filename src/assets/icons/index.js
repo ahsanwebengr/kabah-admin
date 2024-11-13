@@ -19,8 +19,10 @@ import { TbPackageExport } from "react-icons/tb";
 import { GoPackage } from "react-icons/go";
 import { FaPlaneDeparture } from "react-icons/fa";
 import { FaRegNewspaper } from "react-icons/fa6";
+import { MdReviews } from "react-icons/md";
 
 export {
+  MdReviews,
   FaRegNewspaper,
   FaPlaneDeparture,
   FiMenu,

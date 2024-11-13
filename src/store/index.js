@@ -7,6 +7,7 @@ import blogSlice from "./features/blogs/slice";
 import statsSlice from "./features/stats/slice";
 import flightSlice from "./features/flights/slice";
 import pagesSlice from "./features/additional-pages/slice";
+import reviewsSlice from "./features/reviews/slice";
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
     flight: flightSlice,
     stats: statsSlice,
     pages: pagesSlice,
+    review: reviewsSlice,
   },
 });
 

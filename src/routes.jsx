@@ -1,11 +1,18 @@
 import { lazy, Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 import Loader from "./common/Loader";
-import ProtectedRoute from "./components/protected-route";
-import AdditionalPages from "./pages/additional-pages";
-import CreateAdditonalPages from "./pages/additional-pages/create";
-import UpdateAdditonalPages from "./pages/additional-pages/update";
 
+const UpdateTestimonials = lazy(() => import("./pages/testimonials/update"));
+const CreateTestimonials = lazy(() => import("./pages/testimonials/create"));
+const ProtectedRoute = lazy(() => import("./components/protected-route"));
+const AdditionalPages = lazy(() => import("./pages/additional-pages"));
+const CreateAdditonalPages = lazy(
+  () => import("./pages/additional-pages/create"),
+);
+const UpdateAdditonalPages = lazy(
+  () => import("./pages/additional-pages/update"),
+);
+const Testimonials = lazy(() => import("./pages/testimonials"));
 const CreateFlight = lazy(() => import("./pages/flights/create"));
 const UpdateFlight = lazy(() => import("./pages/flights/update"));
 const Flights = lazy(() => import("./pages/flights"));
@@ -231,6 +238,30 @@ const routes = [
     element: (
       <ProtectedRoute>
         <UpdateAdditonalPages />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/testimonials",
+    element: (
+      <ProtectedRoute>
+        <Testimonials />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/testimonials/create",
+    element: (
+      <ProtectedRoute>
+        <CreateTestimonials />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/testimonials/update/:id",
+    element: (
+      <ProtectedRoute>
+        <UpdateTestimonials />
       </ProtectedRoute>
     ),
   },

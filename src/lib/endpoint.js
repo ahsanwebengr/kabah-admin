@@ -4,6 +4,7 @@ const config = {
     blogs: "public/blogs",
     flights: "public/flights",
     pages: "public/additional-pages",
+    testimonials: "public/testimonials",
   },
   admin: {
     packages: "admin/plans",
@@ -16,6 +17,7 @@ const config = {
     logout: "admin/logOut",
     flights: "admin/flights",
     pages: "admin/additional-pages",
+    testimonials: "admin/testimonials",
   },
 };
 

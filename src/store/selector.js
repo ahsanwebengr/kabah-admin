@@ -49,3 +49,5 @@ export const CurrentFlightData = (state) => state?.flight?.selectedFlight?.data;
 
 export const PagesData = (state) => state?.pages?.additionalPages;
 export const CurrentPagesData = (state) => state?.pages?.selectedPage?.data;
+
+export const TestimonialData = (state) => state?.review?.testimonials;

@@ -5,7 +5,6 @@ import {
   FaBlog,
   FaBox,
   GrCompliance,
-  IoHappy,
   IoMdContacts,
   MdPendingActions,
   LuPackage2,
@@ -18,7 +17,6 @@ export const useStatsData = () => {
     totalContacts = 0,
     completeContacts = 0,
     pendingContacts = 0,
-    resolvedContacts = 0,
     totalBlogs = 0,
     totalOrders = 0,
     totalHajjPlans = 0,
@@ -57,12 +55,7 @@ export const useStatsData = () => {
       price: pendingContacts.toLocaleString("en-US"),
       icon: <MdPendingActions size={28} />,
     },
-    {
-      title: "Resolved Contacts",
-      text: "Number of contacts that have been resolved.",
-      price: resolvedContacts.toLocaleString("en-US"),
-      icon: <IoHappy size={28} />,
-    },
+
     {
       title: "Total Hajj Plans",
       text: "The total number of Hajj plans available.",

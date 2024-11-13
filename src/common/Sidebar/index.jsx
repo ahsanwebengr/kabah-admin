@@ -9,6 +9,7 @@ import {
   IoMdContacts,
   FaPlaneDeparture,
   FaRegNewspaper,
+  MdReviews,
 } from "@/assets/icons";
 
 import MenuLinks from "./MenuLinks";
@@ -196,6 +197,19 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               >
                 <FaPlaneDeparture />
                 Flights
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink
+                to="/testimonials"
+                className={`group flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-white duration-300 ${
+                  (pathname === "/" || pathname.includes("testimonials")) &&
+                  "bg-white !text-black"
+                }`}
+              >
+                <MdReviews />
+                Testimonials
               </NavLink>
             </li>
 
