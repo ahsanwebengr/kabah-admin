@@ -21,18 +21,20 @@ export const columns = (onDelete) => [
     sortable: true,
   },
   {
+    width: "200px",
     name: "Type",
     selector: ({ type = "" }) => <span className="capitalize">{type}</span>,
 
     sortable: true,
   },
   {
+    width: "200px",
     name: "Status",
     selector: ({ status = "" }) => (
       <div
-        className={`rounded-full px-4 py-1 text-sm font-medium ${status === "pending" && "bg-yellow-50 text-yellow-500"} ${status === "complete" && "bg-green-50 text-green-500"} `}
+        className={`mx-1 rounded-full border border-current px-4 py-2 capitalize ${status === "complete" ? "bg-green-100 text-green-500" : "bg-red-100 text-red-500"}`}
       >
-        {status.charAt(0).toUpperCase() + status.slice(1)}
+        {status}
       </div>
     ),
     sortable: true,

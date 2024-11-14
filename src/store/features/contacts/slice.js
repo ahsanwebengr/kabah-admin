@@ -6,6 +6,7 @@ import {
   getReservations,
   getSingleContacts,
   getSingleReservation,
+  updateReservation,
   updateStatus,
 } from "./service";
 
@@ -116,6 +117,19 @@ export const contactSlice = createSlice({
         state.reservation.data = action.payload;
       })
       .addCase(deleteReservation.rejected, (state, action) => {
+        state.reservation.isLoading = false;
+        state.reservation.isSuccess = false;
+        state.reservation.errorMessage = action.payload;
+      })
+      .addCase(updateReservation.pending, (state) => {
+        state.reservation.isLoading = true;
+      })
+      .addCase(updateReservation.fulfilled, (state, action) => {
+        state.reservation.isLoading = false;
+        state.reservation.isSuccess = true;
+        state.reservation.data = action.payload;
+      })
+      .addCase(updateReservation.rejected, (state, action) => {
         state.reservation.isLoading = false;
         state.reservation.isSuccess = false;
         state.reservation.errorMessage = action.payload;

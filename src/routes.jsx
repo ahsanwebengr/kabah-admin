@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 import Loader from "./common/Loader";
 
+const UpdateReservation = lazy(() => import("./pages/reservation/update"));
 const UpdateTestimonials = lazy(() => import("./pages/testimonials/update"));
 const CreateTestimonials = lazy(() => import("./pages/testimonials/create"));
 const ProtectedRoute = lazy(() => import("./components/protected-route"));
@@ -166,6 +167,14 @@ const routes = [
     element: (
       <ProtectedRoute>
         <ViewReservationDetail />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/reservation/update/:id",
+    element: (
+      <ProtectedRoute>
+        <UpdateReservation />
       </ProtectedRoute>
     ),
   },

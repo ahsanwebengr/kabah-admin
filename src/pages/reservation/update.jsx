@@ -2,19 +2,20 @@ import Breadcrumb from "@/components/Breadcrumb";
 import { Button } from "@/components/ui/button";
 import DefaultLayout from "@/layout/DefaultLayout";
 import {
-  getSingleContacts,
-  updateStatus,
+  getSingleReservation,
+  updateReservation,
 } from "@/store/features/contacts/service";
-import { CurrentContactsData } from "@/store/selector";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-const UpdateContactDetail = () => {
+const UpdateReservation = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { status: currentStatus = "" } = useSelector(CurrentContactsData) || {};
+  const { status: currentStatus = "" } =
+    useSelector((state) => state?.contact?.currentReservation?.data?.order) ||
+    {};
 
   const [status, setStatus] = useState(currentStatus);
 
@@ -24,8 +25,8 @@ const UpdateContactDetail = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(updateStatus({ id, status })).unwrap();
-    navigate("/contacts");
+    await dispatch(updateReservation({ id, status })).unwrap();
+    navigate("/reservation");
   };
 
   useEffect(() => {
@@ -36,7 +37,7 @@ const UpdateContactDetail = () => {
 
   useEffect(() => {
     if (id) {
-      dispatch(getSingleContacts(id));
+      dispatch(getSingleReservation(id));
     }
   }, [dispatch, id]);
 
@@ -55,7 +56,7 @@ const UpdateContactDetail = () => {
             <option value="pending" selected={status === "pending"}>
               Pending
             </option>
-            <option value="complete" selected={status === "complete"}>
+            <option value="complete" selected={status === "pending"}>
               Complete
             </option>
           </select>
@@ -67,4 +68,4 @@ const UpdateContactDetail = () => {
   );
 };
 
-export default UpdateContactDetail;
+export default UpdateReservation;

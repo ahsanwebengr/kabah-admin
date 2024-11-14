@@ -55,7 +55,7 @@ const deleteContact = createAsyncThunk(
 const updateStatus = createAsyncThunk(
   "contact/updateStatus",
   async ({ id, status }, { rejectWithValue }) => {
-        try {
+    try {
       const response = await api.put(
         `${config.admin.contacts}/${id}`,
         { status },
@@ -125,6 +125,26 @@ const deleteReservation = createAsyncThunk(
   },
 );
 
+const updateReservation = createAsyncThunk(
+  "contact/updateReservation",
+  async ({ id, status }, { rejectWithValue }) => {
+    try {
+      const response = await api.put(`admin/Order/${id}`, {
+        status,
+      });
+
+      if (response.status === 200) {
+        toast.success(response.data?.message || "Update Reservation Success");
+      }
+
+      return response?.data;
+    } catch ({ message, response }) {
+      toast.error(response?.data?.error || "Failed to Update Reservation");
+      return rejectWithValue(message);
+    }
+  },
+);
+
 export {
   getContacts,
   updateStatus,
@@ -132,5 +152,6 @@ export {
   getReservations,
   getSingleReservation,
   deleteReservation,
+  updateReservation,
   deleteContact,
 };

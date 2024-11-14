@@ -3,28 +3,33 @@ import { Link } from "react-router-dom";
 
 export const columns = (onDelete) => [
   {
+    width: "200px",
     name: "Airline",
     selector: ({ airline = "" }) => airline,
     sortable: true,
   },
 
   {
+    width: "200px",
     name: "From",
     selector: ({ from = "" }) => <div className="capitalize">{from}</div>,
     sortable: true,
   },
 
   {
+    width: "200px",
     name: "To",
     selector: ({ to = "" }) => <div className="capitalize">{to}</div>,
     sortable: true,
   },
   {
+    width: "200px",
     name: "Price",
     selector: ({ price = "" }) => <span>£ {price}</span>,
     sortable: true,
   },
   {
+    width: "200px",
     name: "Flight No.",
     selector: ({ flightsNumber = "" }) => flightsNumber,
     sortable: true,

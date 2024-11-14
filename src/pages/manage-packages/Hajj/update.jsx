@@ -75,7 +75,7 @@ const UpdateHajjPackage = () => {
       medinah_hotel,
       what_to_expect,
     },
-    validationSchema: PackageSchema,
+    validationSchema: PackageSchema(true),
     onSubmit: async (values, { setSubmitting }) => {
       try {
         setSubmitting(true);
