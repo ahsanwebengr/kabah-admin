@@ -4,7 +4,7 @@ import TextEditor from "@/components/TextEditor";
 import { Textarea } from "@/components/ui/textarea";
 import { InputField } from "@/components/Umrah";
 import DefaultLayout from "@/layout/DefaultLayout";
-import { BASE_URL, BLOGS_FOLDER } from "@/lib/constants/options";
+import { BASE_URL } from "@/lib/constants/options";
 import { getSingleBlog } from "@/store/features/blogs/service";
 import { CurrentBlogData } from "@/store/selector";
 import { useFormik } from "formik";
@@ -48,7 +48,7 @@ const ViewBlog = () => {
         <div className="grid grid-cols-1 gap-4 rounded-lg bg-white px-5 py-10 shadow-xl md:grid-cols-2">
           <div className="col-span-2">
             <img
-              src={`${BASE_URL}/${BLOGS_FOLDER}/${image}` || alt_img}
+              src={`${BASE_URL}blogs/${image}`}
               alt="Blog image"
               onError={(e) => (e.target.src = alt_img)}
             />
