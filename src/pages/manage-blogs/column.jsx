@@ -1,7 +1,7 @@
 import { alt_img } from "@/assets/images";
 import { FaRegEye, MdDelete, FaEdit } from "@/assets/icons";
 import { Link } from "react-router-dom";
-import { BASE_URL, BLOGS_FOLDER } from "@/lib/constants/options";
+import { BASE_URL } from "@/lib/constants/options";
 
 export const columns = (onDelete) => [
   {
@@ -9,7 +9,7 @@ export const columns = (onDelete) => [
     name: "Image",
     selector: ({ title = "", image = "" }) => (
       <img
-        src={`${BASE_URL}/${BLOGS_FOLDER}/${image}` || alt_img}
+        src={`${BASE_URL}blogs/${image}` || alt_img}
         onError={(e) => (e.target.src = alt_img)}
         alt={title}
         className="size-16 rounded-md border p-2"

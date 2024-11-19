@@ -8,7 +8,7 @@ export const column = (onDelete) => [
     name: "image",
     selector: ({ title = "", image = "" }) => (
       <img
-        src={`${BASE_URL}/testimonials/${image}` || alt_img}
+        src={`${BASE_URL}testimonials/${image}` || alt_img}
         onError={(e) => (e.target.src = alt_img)}
         alt={title}
         className="size-16 rounded-md border p-2"

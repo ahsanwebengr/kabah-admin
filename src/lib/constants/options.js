@@ -31,8 +31,6 @@ const HotelOptions = [
 
 const UMRAH_PARAM = "umrah";
 const HAJJ_PARAM = "hajj";
-export const FOLDER_NAME = "hotelsImages";
-export const BLOGS_FOLDER = "blogs";
 
 export { AirportOptions, HotelOptions, HAJJ_PARAM, UMRAH_PARAM };
 
