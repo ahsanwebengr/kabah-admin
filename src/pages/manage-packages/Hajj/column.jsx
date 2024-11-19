@@ -9,7 +9,7 @@ export const columns = (onDelete, onMediaAdd) => [
     selector: ({ heading = "", thumbnail = "" }) => (
       <img
         src={`${BASE_URL}${FOLDER_NAME}/${thumbnail}`}
-        onError={(e) => (e.target.src = alt_img)}
+        // onError={(e) => (e.target.src = alt_img)}
         alt={heading}
         className="size-16 rounded-md border p-2"
       />
