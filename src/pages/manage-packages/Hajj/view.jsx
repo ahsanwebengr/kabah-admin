@@ -11,7 +11,6 @@ import DefaultLayout from "@/layout/DefaultLayout";
 import {
   AirportOptions,
   BASE_URL,
-  FOLDER_NAME,
   HotelOptions,
   UMRAH_PARAM,
 } from "@/lib/constants/options";
@@ -305,7 +304,7 @@ const ViewHajjPackage = () => {
             {values.makkah_hotel?.makkah_hotel_images?.map((image, index) => (
               <img
                 key={index}
-                src={`${BASE_URL}/${FOLDER_NAME}/${image}` || alt_img}
+                src={`${BASE_URL}hotelsImages/${image}`}
                 alt={`Makkah Hotel ${index + 1}`}
                 onError={(e) => (e.target.src = alt_img)}
                 className="h-48 w-full rounded-md border object-cover"
@@ -364,7 +363,7 @@ const ViewHajjPackage = () => {
             {values.medinah_hotel?.medinah_hotel_images?.map((image, index) => (
               <img
                 key={index}
-                src={`${BASE_URL}/${FOLDER_NAME}/${image}` || alt_img}
+                src={`${BASE_URL}hotelsImages/${image}`}
                 alt={`Makkah Hotel ${index + 1}`}
                 onError={(e) => (e.target.src = alt_img)}
                 className="h-48 w-full rounded-md border object-cover"
