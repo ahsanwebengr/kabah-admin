@@ -122,7 +122,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
                   <div className={`overflow-hidden ${!open && "hidden"}`}>
                     <ul className="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
-                      {["umrah", "hajj"].map((link) => (
+                      {["umrah", "hajj", "ramzan"].map((link) => (
                         <li key={link}>
                           <NavLink
                             to={`/packages/${link}`}

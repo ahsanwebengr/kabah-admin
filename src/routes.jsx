@@ -2,6 +2,16 @@ import { lazy, Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 import Loader from "./common/Loader";
 
+const Ramzan = lazy(() => import("./pages/manage-packages/Ramzan"));
+const CreateRamzanPackage = lazy(
+  () => import("./pages/manage-packages/Ramzan/create"),
+);
+const UpdateRamzanPackage = lazy(
+  () => import("./pages/manage-packages/Ramzan/update"),
+);
+const ViewRamzanPackage = lazy(
+  () => import("./pages/manage-packages/Ramzan/view"),
+);
 const UpdateReservation = lazy(() => import("./pages/reservation/update"));
 const UpdateTestimonials = lazy(() => import("./pages/testimonials/update"));
 const CreateTestimonials = lazy(() => import("./pages/testimonials/create"));
@@ -119,6 +129,38 @@ const routes = [
     element: (
       <ProtectedRoute>
         <ViewHajjPackage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/packages/ramzan",
+    element: (
+      <ProtectedRoute>
+        <Ramzan />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/packages/ramzan/create",
+    element: (
+      <ProtectedRoute>
+        <CreateRamzanPackage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/packages/ramzan/update/:id",
+    element: (
+      <ProtectedRoute>
+        <UpdateRamzanPackage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/packages/ramzan/view/:id",
+    element: (
+      <ProtectedRoute>
+        <ViewRamzanPackage />
       </ProtectedRoute>
     ),
   },

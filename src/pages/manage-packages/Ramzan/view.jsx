@@ -20,7 +20,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-const ViewHajjPackage = () => {
+const ViewRamzanPackage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const {
@@ -32,7 +32,6 @@ const ViewHajjPackage = () => {
     flights = false,
     transport = false,
     sharing = false,
-    free_ziyarahs = false,
     from_date = "",
     to_date = "",
     departure_airport = "",
@@ -48,7 +47,7 @@ const ViewHajjPackage = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      category: "hajj",
+      category: "ramzan",
       heading,
       price,
       description,
@@ -57,7 +56,6 @@ const ViewHajjPackage = () => {
       flights,
       transport,
       sharing,
-      free_ziyarahs,
       from_date: from_date?.split("T")[0],
       to_date: to_date?.split("T")[0],
       departure_airport,
@@ -201,13 +199,6 @@ const ViewHajjPackage = () => {
             label="Sharing"
             disabled={true}
             checked={values.sharing}
-            onChange={handleChange}
-          />
-          <CheckboxField
-            name="free_ziyarahs"
-            label="Free Ziyarahs"
-            disabled={true}
-            checked={values.free_ziyarahs}
             onChange={handleChange}
           />
         </FormSection>
@@ -388,4 +379,4 @@ const ViewHajjPackage = () => {
   );
 };
 
-export default ViewHajjPackage;
+export default ViewRamzanPackage;

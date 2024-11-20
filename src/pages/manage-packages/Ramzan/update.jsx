@@ -1,5 +1,6 @@
-import { alt_img } from "@/assets/images";
+import { Spinner } from "@/common";
 import Breadcrumb from "@/components/Breadcrumb";
+import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import {
   CheckboxField,
@@ -8,20 +9,21 @@ import {
   SelectField,
 } from "@/components/Umrah";
 import DefaultLayout from "@/layout/DefaultLayout";
+import { AirportOptions, HotelOptions } from "@/lib/constants/options";
+import PackageSchema from "@/schema/Package";
 import {
-  AirportOptions,
-  BASE_URL,
-  HotelOptions,
-} from "@/lib/constants/options";
-import { getSinglePackage } from "@/store/features/packages/service";
+  getSinglePackage,
+  updatePackage,
+} from "@/store/features/packages/service";
 import { SelectedPackage } from "@/store/selector";
 import { useFormik } from "formik";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const ViewHajjPackage = () => {
+const UpdateRamzanPackage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
     heading = "",
@@ -32,7 +34,6 @@ const ViewHajjPackage = () => {
     flights = false,
     transport = false,
     sharing = false,
-    free_ziyarahs = false,
     from_date = "",
     to_date = "",
     departure_airport = "",
@@ -48,7 +49,7 @@ const ViewHajjPackage = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      category: "hajj",
+      category: "ramzan",
       heading,
       price,
       description,
@@ -57,7 +58,6 @@ const ViewHajjPackage = () => {
       flights,
       transport,
       sharing,
-      free_ziyarahs,
       from_date: from_date?.split("T")[0],
       to_date: to_date?.split("T")[0],
       departure_airport,
@@ -69,9 +69,22 @@ const ViewHajjPackage = () => {
       medinah_hotel,
       what_to_expect,
     },
+    validationSchema: PackageSchema(true),
+    onSubmit: async (values, { setSubmitting }) => {
+      try {
+        setSubmitting(true);
+        await dispatch(updatePackage({ id: id, data: values })).unwrap();
+        navigate("/packages/ramzan");
+      } catch (error) {
+        console.error(values);
+      } finally {
+        setSubmitting(false);
+      }
+    },
   });
 
-  const { values, errors, touched, handleChange, handleSubmit } = formik;
+  const { values, errors, touched, handleChange, handleSubmit, isSubmitting } =
+    formik;
 
   useEffect(() => {
     if (id) {
@@ -88,7 +101,6 @@ const ViewHajjPackage = () => {
           <InputField
             label="Heading"
             name="heading"
-            disabled={true}
             value={values.heading}
             onChange={handleChange}
             error={errors.heading && touched.heading ? errors.heading : null}
@@ -97,7 +109,6 @@ const ViewHajjPackage = () => {
             label="Price"
             name="price"
             type="number"
-            disabled={true}
             value={values.price}
             onChange={handleChange}
             error={errors.price && touched.price ? errors.price : null}
@@ -106,7 +117,6 @@ const ViewHajjPackage = () => {
             label="From Date"
             name="from_date"
             type="date"
-            disabled={true}
             value={values.from_date}
             onChange={handleChange}
             error={
@@ -117,7 +127,6 @@ const ViewHajjPackage = () => {
             label="To Date"
             name="to_date"
             type="date"
-            disabled={true}
             value={values.to_date}
             onChange={handleChange}
             error={errors.to_date && touched.to_date ? errors.to_date : null}
@@ -125,7 +134,6 @@ const ViewHajjPackage = () => {
           <SelectField
             label="Hotels Rating"
             name="hotels_rating"
-            disabled={true}
             value={values.hotels_rating}
             onChange={handleChange}
             options={HotelOptions}
@@ -133,7 +141,6 @@ const ViewHajjPackage = () => {
           <SelectField
             label="Departure Airport"
             name="departure_airport"
-            disabled={true}
             value={values.departure_airport}
             onChange={handleChange}
             options={AirportOptions}
@@ -141,7 +148,6 @@ const ViewHajjPackage = () => {
           <InputField
             label="Transit Hub"
             name="transit_hub"
-            disabled={true}
             value={values.transit_hub}
             onChange={handleChange}
             error={
@@ -159,7 +165,6 @@ const ViewHajjPackage = () => {
             </label>
             <Textarea
               name="description"
-              disabled={true}
               value={values.description}
               onChange={handleChange}
               placeholder="Package Description"
@@ -178,36 +183,25 @@ const ViewHajjPackage = () => {
           <CheckboxField
             name="visa_included"
             label="Visa Included"
-            disabled={true}
             checked={values.visa_included}
             onChange={handleChange}
           />
           <CheckboxField
             name="flights"
             label="Flights"
-            disabled={true}
             checked={values.flights}
             onChange={handleChange}
           />
           <CheckboxField
             name="transport"
             label="Transport"
-            disabled={true}
             checked={values.transport}
             onChange={handleChange}
           />
           <CheckboxField
             name="sharing"
             label="Sharing"
-            disabled={true}
             checked={values.sharing}
-            onChange={handleChange}
-          />
-          <CheckboxField
-            name="free_ziyarahs"
-            label="Free Ziyarahs"
-            disabled={true}
-            checked={values.free_ziyarahs}
             onChange={handleChange}
           />
         </FormSection>
@@ -218,7 +212,6 @@ const ViewHajjPackage = () => {
               key={key}
               name={`price_includes.${key}`}
               label={key}
-              disabled={true}
               checked={values.price_includes[key]}
               onChange={handleChange}
             />
@@ -231,7 +224,6 @@ const ViewHajjPackage = () => {
               key={key}
               name={`price_excludes.${key}`}
               label={key}
-              disabled={true}
               checked={values.price_excludes[key]}
               onChange={handleChange}
             />
@@ -244,7 +236,6 @@ const ViewHajjPackage = () => {
               key={key}
               name={`complementarities.${key}`}
               label={key}
-              disabled={true}
               checked={values.complementarities[key]}
               onChange={handleChange}
             />
@@ -256,7 +247,6 @@ const ViewHajjPackage = () => {
             <InputField
               name="makkah_hotel.hotel_name"
               label="Hotel Name"
-              disabled={true}
               value={values.makkah_hotel?.hotel_name}
               onChange={handleChange}
               error={
@@ -270,46 +260,30 @@ const ViewHajjPackage = () => {
             <SelectField
               name="makkah_hotel.rating"
               label="Rating"
-              disabled={true}
               value={values.makkah_hotel?.rating}
               onChange={handleChange}
               options={HotelOptions}
             />
           </div>
 
-          <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-            {Object.keys(values.makkah_hotel).map((key) => {
-              if (
-                key !== "hotel_name" &&
-                key !== "rating" &&
-                key !== "makkah_hotel_images"
-              ) {
-                return (
-                  <CheckboxField
-                    key={key}
-                    disabled={true}
-                    name={`makkah_hotel.${key}`}
-                    label={key.replace(/_/g, " ")}
-                    checked={values.makkah_hotel[key]}
-                    onChange={handleChange}
-                  />
-                );
-              }
-              return null;
-            })}
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:col-span-2 md:grid-cols-3">
-            {values.makkah_hotel?.makkah_hotel_images?.map((image, index) => (
-              <img
-                key={index}
-                src={`${BASE_URL}hotelsImages/${image}`}
-                alt={`Makkah Hotel ${index + 1}`}
-                onError={(e) => (e.target.src = alt_img)}
-                className="h-48 w-full rounded-md border object-cover"
-              />
-            ))}
-          </div>
+          {Object.keys(values.makkah_hotel).map((key) => {
+            if (
+              key !== "hotel_name" &&
+              key !== "rating" &&
+              key !== "makkah_hotel_images"
+            ) {
+              return (
+                <CheckboxField
+                  key={key}
+                  name={`makkah_hotel.${key}`}
+                  label={key.replace(/_/g, " ")}
+                  checked={values.makkah_hotel[key]}
+                  onChange={handleChange}
+                />
+              );
+            }
+            return null;
+          })}
         </FormSection>
 
         <FormSection title="Madinah Hotel:">
@@ -317,7 +291,6 @@ const ViewHajjPackage = () => {
             <InputField
               name="medinah_hotel.hotel_name"
               label="Hotel Name"
-              disabled={true}
               value={values.medinah_hotel.hotel_name}
               onChange={handleChange}
               error={
@@ -331,7 +304,6 @@ const ViewHajjPackage = () => {
             <SelectField
               name="medinah_hotel.rating"
               label="Rating"
-              disabled={true}
               value={values.medinah_hotel.rating}
               onChange={handleChange}
               options={HotelOptions}
@@ -347,7 +319,6 @@ const ViewHajjPackage = () => {
               return (
                 <CheckboxField
                   key={key}
-                  disabled={true}
                   name={`medinah_hotel.${key}`}
                   label={key.replace(/_/g, " ")}
                   checked={values.medinah_hotel[key]}
@@ -357,18 +328,6 @@ const ViewHajjPackage = () => {
             }
             return null;
           })}
-
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:col-span-2 md:grid-cols-3">
-            {values.medinah_hotel?.medinah_hotel_images?.map((image, index) => (
-              <img
-                key={index}
-                src={`${BASE_URL}hotelsImages/${image}`}
-                alt={`Makkah Hotel ${index + 1}`}
-                onError={(e) => (e.target.src = alt_img)}
-                className="h-48 w-full rounded-md border object-cover"
-              />
-            ))}
-          </div>
         </FormSection>
 
         <FormSection title="What to Expect:">
@@ -377,15 +336,18 @@ const ViewHajjPackage = () => {
               key={key}
               name={`what_to_expect.${key}`}
               label={key}
-              disabled={true}
               checked={values.what_to_expect[key]}
               onChange={handleChange}
             />
           ))}
         </FormSection>
+
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? <Spinner /> : "Update"}
+        </Button>
       </form>
     </DefaultLayout>
   );
 };
 
-export default ViewHajjPackage;
+export default UpdateRamzanPackage;
