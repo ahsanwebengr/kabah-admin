@@ -78,7 +78,7 @@ const deleteBlog = createAsyncThunk(
   "blog/deleteBlog",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await api.delete(`${config.admin.blogs}/${id}`);
+      const response = await api.delete(`admin/blog/${id}`);
       if (response.status === 200) {
         toast.success(response?.data?.message || "Blog Deleted successfully");
       }
